@@ -1,0 +1,43 @@
+.not-found {
+  &__wrapper {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../../../public/img/amsterdam@2x.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    color: #000000;
+  }
+
+  &__content {
+    max-width: 720px;
+    padding: 100px;
+    text-align: center;
+    vertical-align: middle;
+
+    background-color: #ffffff;
+    border-radius: 40px;
+  }
+
+  &__title {
+    margin: 0;
+    margin-bottom: 40px;
+  }
+
+  &__link {
+    font-size: 32px;
+    text-decoration: underline;
+
+    &:hover {
+      opacity: 0.6;
+    }
+
+    &:active {
+      opacity: 0.3;
+    }
+  }
+}

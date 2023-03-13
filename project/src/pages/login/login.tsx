@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
-import Logo from '../../components/logo/logo';
+import { Logo } from '../../components/logo/logo';
 
-function Login(): JSX.Element {
+export function Login(): JSX.Element {
   return (
     <>
       <Helmet>
@@ -10,7 +10,9 @@ function Login(): JSX.Element {
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
-            <Logo/>
+            <div className="header__left">
+              <Logo/>
+            </div>
           </div>
         </div>
       </header>
@@ -42,5 +44,3 @@ function Login(): JSX.Element {
     </>
   );
 }
-
-export default Login;

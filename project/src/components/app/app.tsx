@@ -1,23 +1,27 @@
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import Main from '../../pages/main/main';
-import Login from '../../pages/login/login';
-import Room from '../../pages/offer/offer';
-import NotFound from '../not-found/not-found';
-import {AppRoute} from '../../const';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { AppRoute } from '../../const';
 import { HelmetProvider } from 'react-helmet-async';
+import { NotFound } from '../../pages/not-found/not-found';
+import { Login } from '../../pages/login/login';
+import { Main } from '../../pages/main/main';
+import { Room } from '../../pages/offer/offer';
+import { Offer } from '../../types/offer';
+import { Review } from '../../types/review';
 
 type AppProps = {
-  offers: number;
+  offersCount: number;
+  offers: Offer[];
+  reviews: Review[];
 }
 
-function App({offers}: AppProps): JSX.Element {
+export function App({offersCount, offers, reviews}: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<Main offers={offers} />}
+            element={<Main offersCount={offersCount} offers={offers}/>}
           />
           <Route
             path={AppRoute.Login}
@@ -25,7 +29,7 @@ function App({offers}: AppProps): JSX.Element {
           />
           <Route
             path={AppRoute.Room}
-            element={<Room />}
+            element={<Room reviews={reviews}/>}
           />
           <Route
             path='*'
@@ -36,5 +40,3 @@ function App({offers}: AppProps): JSX.Element {
     </HelmetProvider>
   );
 }
-
-export default App;

@@ -1,0 +1,40 @@
+.not-found__screen {
+  height: 100vh;
+  display: flex;
+
+  color: #000000;
+}
+
+.not-found__content {
+  margin: auto;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+
+  border-radius: 40px;
+}
+
+.not-found__image {
+  min-width: 200px;
+  height: auto;
+  border-radius: 20px;
+}
+
+.not-found__title {
+  margin: 0;
+}
+
+.not-found__link {
+  font-size: 1.5em;
+}
+
+.not-found__link:hover {
+  text-decoration: underline;
+}
+
+.not-found__link:active {
+  opacity: 0.6;
+}

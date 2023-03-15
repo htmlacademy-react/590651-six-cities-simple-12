@@ -1,3 +1,5 @@
+import { User } from './user';
+
 export type Offer = {
   offerId: string;
   isPremiumOffer: boolean;
@@ -6,4 +8,9 @@ export type Offer = {
   offerRating: number;
   offerName: string;
   offerType: string;
+  offerBedrooms: number;
+  offerGuestsNumber: number;
+  offerServices: string[];
+  offerHost: User;
+  offerDescription: string;
 };

@@ -41,7 +41,7 @@ export const OfferItem: FC<CardProps> = ({
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${offerRating}%`}}></span>
+            <span style={{width: `${offerRating * 20}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

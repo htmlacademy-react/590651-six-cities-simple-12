@@ -29,7 +29,7 @@ export function App({offersCount, offers, reviews}: AppProps): JSX.Element {
           />
           <Route
             path={AppRoute.Room}
-            element={<Room reviews={reviews}/>}
+            element={<Room reviews={reviews} offer={offers[0]}/>}
           />
           <Route
             path='*'

@@ -11,7 +11,7 @@ export const reviews: Review[] =
         userAvatar: 'https://12.react.pages.academy/static/avatar/6.jpg'
       },
       rating: 4,
-      comment: 'It was ok, but the weather was terrible and I spent the whole vacation at home!',
+      comment: 'It was ok, but the weather was terrible and I spent the whole vacation at the house!',
       date: '2023-02-24'
     }, {
       reviewId: 2,

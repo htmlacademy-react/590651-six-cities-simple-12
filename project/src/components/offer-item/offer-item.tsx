@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Offer } from '../../types/offer';
@@ -16,8 +16,15 @@ export const OfferItem: FC<CardProps> = ({
     id: `${offerId}`,
   });
 
+  const [isActive, setIsActive] = useState(false);
+
   return (
-    <article className="cities__card place-card">
+    <article
+      className="cities__card place-card"
+      onMouseEnter={() => setIsActive(true)}
+      onMouseLeave={() => setIsActive(false)}
+    >
+      {isActive}
       {isPremiumOffer ? <PremiumOffer/> : ''}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={link}>

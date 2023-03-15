@@ -1,10 +1,11 @@
+import React from 'react';
 import { ChangeEvent, FC } from 'react';
 
 type ReviewRatingProps = {
   fieldChangeHandler: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 };
 
-export type ReviewStar = {
+type ReviewStar = {
   value: number;
   title: string;
 };
@@ -21,7 +22,7 @@ export const ReviewRating: FC<ReviewRatingProps> = ({fieldChangeHandler}) => (
   <div className="reviews__rating-form form__rating">
     {
       reviewStars.map((star) => (
-        <>
+        <React.Fragment key={star.value}>
           <input
             className="form__rating-input visually-hidden"
             onChange={fieldChangeHandler}
@@ -39,7 +40,7 @@ export const ReviewRating: FC<ReviewRatingProps> = ({fieldChangeHandler}) => (
               <use xlinkHref="#icon-star"></use>
             </svg>
           </label>
-        </>
+        </React.Fragment>
       ))
     }
   </div>

@@ -11,8 +11,6 @@ type MainPageProps = {
 }
 
 export function Main({offersCount, offers}: MainPageProps): JSX.Element {
-  // const [emptyMainPage, setEmptyMainPage] = useState(<Main offers={offers}/>);
-
   return (
     <>
       <Helmet>

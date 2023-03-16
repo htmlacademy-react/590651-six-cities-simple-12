@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, generatePath, Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { HelmetProvider } from 'react-helmet-async';
 import { NotFound } from '../../pages/not-found/not-found';
@@ -28,7 +28,7 @@ export function App({offersCount, offers, reviews}: AppProps): JSX.Element {
             element={<Login />}
           />
           <Route
-            path={AppRoute.Room}
+            path={generatePath(AppRoute.Room, {id: `${offers[0].offerId}`})}
             element={<Room reviews={reviews} offer={offers[0]}/>}
           />
           <Route

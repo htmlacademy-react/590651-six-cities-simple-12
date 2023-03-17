@@ -1,9 +1,13 @@
 import { Helmet } from 'react-helmet-async';
 import { Header } from '../../components/header/header';
-import { PlacesOptionsList } from '../../components/places-options-list/places-options-list';
-// import { useState } from 'react';
+import { PlacesOptionsSelect } from '../../components/places-options-select/places-options-select';
 import { Offer } from '../../types/offer';
 import { OffersList } from '../../components/offers-list/offers-list';
+import { Map } from '../../components/map/map';
+import 'leaflet/dist/leaflet.css';
+import { CITY } from '../../mocks/city';
+import { POINTS } from '../../mocks/points';
+import { useCallback, useState } from 'react';
 
 type MainPageProps = {
   offersCount: number;
@@ -11,6 +15,13 @@ type MainPageProps = {
 }
 
 export function Main({offersCount, offers}: MainPageProps): JSX.Element {
+  const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
+
+  const onListItemHover = useCallback(
+    (_offer: Offer | undefined) => setSelectedOffer(_offer),
+    []
+  );
+
   return (
     <>
       <Helmet>
@@ -59,12 +70,12 @@ export function Main({offersCount, offers}: MainPageProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersCount} places to stay in Amsterdam</b>
-              <PlacesOptionsList />
-              <OffersList offers={offers} />
+              <b className="places__found">{offersCount} places to stay in {CITY.name}</b>
+              <PlacesOptionsSelect />
+              <OffersList offers={offers} onSetActiveOffer={onListItemHover}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map city={CITY} points={POINTS} selectedOffer={selectedOffer}/>
             </div>
           </div>
         </div>

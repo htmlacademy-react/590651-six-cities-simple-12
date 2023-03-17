@@ -4,17 +4,19 @@ import { HelmetProvider } from 'react-helmet-async';
 import { NotFound } from '../../pages/not-found/not-found';
 import { Login } from '../../pages/login/login';
 import { Main } from '../../pages/main/main';
-import { Room } from '../../pages/offer/offer';
+import { Property } from '../../pages/property/property';
 import { Offer } from '../../types/offer';
 import { Review } from '../../types/review';
+
 
 type AppProps = {
   offersCount: number;
   offers: Offer[];
+  offer: Offer;
   reviews: Review[];
 }
 
-export function App({offersCount, offers, reviews}: AppProps): JSX.Element {
+export function App({offersCount, offers, reviews, offer}: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -28,8 +30,8 @@ export function App({offersCount, offers, reviews}: AppProps): JSX.Element {
             element={<Login />}
           />
           <Route
-            path={generatePath(AppRoute.Room, {id: `${offers[0].offerId}`})}
-            element={<Room reviews={reviews} offer={offers[0]}/>}
+            path={generatePath(AppRoute.Room, {id: `${offer.id}`})}
+            element={<Property reviews={reviews} offer={offer}/>}
           />
           <Route
             path='*'

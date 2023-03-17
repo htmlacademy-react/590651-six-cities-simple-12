@@ -6,49 +6,52 @@ import { PremiumOffer } from '../premium-offer/premium-offer';
 
 type CardProps = {
   offer: Offer;
+  onSetActiveOffer: (offer: Offer | undefined) => void;
 };
 
 export const OfferItem: FC<CardProps> = ({
-  offer
+  offer, onSetActiveOffer
 }) => {
-  const { offerId, isPremiumOffer, offerImageSource, offerPrice, offerRating, offerName, offerType } = offer;
+  const { id, isPremium, previewImage, price, rating, title, type } = offer;
   const link = generatePath(AppRoute.Room, {
-    id: `${offerId}`,
+    id: `${id}`,
   });
 
-  const [isActive, setIsActive] = useState(false);
+  const [isActive] = useState(false);
 
   return (
     <article
       className="cities__card place-card"
-      onMouseEnter={() => setIsActive(true)}
-      onMouseLeave={() => setIsActive(false)}
+      onMouseOver={() => {onSetActiveOffer(offer);}}
+      onMouseLeave={() => {onSetActiveOffer(undefined);}}
     >
       {isActive}
-      {isPremiumOffer ? <PremiumOffer/> : ''}
+      {isPremium ? <PremiumOffer/> : ''}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={link}>
-          <img className="place-card__image" src={offerImageSource} width="260" height="200" alt={offerName}/>
+          <img className="place-card__image" src={previewImage}
+            width="260" height="200" alt={title}
+          />
         </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{offerPrice}</b>
+            <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
 
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${offerRating * 20}%`}}></span>
+            <span style={{width: `${rating * 20}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={link}>{offerName}</Link>
+          <Link to={link}>{title}</Link>
         </h2>
-        <p className="place-card__type">{offerType}</p>
+        <p className="place-card__type">{type}</p>
       </div>
     </article>
   );

@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { Header } from '../../components/header/header';
 import { PlacesOptionsSelect } from '../../components/places-options-select/places-options-select';
 import { Offer } from '../../types/offer';
-import { OffersList } from '../../components/offers-list/offers-list';
+import { OffersList } from '../../components/offer/offers-list/offers-list';
 import { Map } from '../../components/map/map';
 import 'leaflet/dist/leaflet.css';
 import { CITY } from '../../mocks/city';

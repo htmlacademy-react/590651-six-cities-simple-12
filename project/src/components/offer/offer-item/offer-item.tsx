@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { generatePath, Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import { Offer } from '../../types/offer';
+import { AppRoute } from '../../../const';
+import { Offer } from '../../../types/offer';
 import { PremiumOffer } from '../premium-offer/premium-offer';
 
 type CardProps = {

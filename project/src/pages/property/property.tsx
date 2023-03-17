@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet-async';
 import { Header } from '../../components/header/header';
 import { PropertyPremiumMark } from '../../components/property-premium-mark/property-premium-mark';
-import { ReviewForm } from '../../components/review-form/review-form';
-import { ReviewsList } from '../../components/reviews-list/reviews-list';
+import { ReviewForm } from '../../components/review/review-form/review-form';
+import { ReviewsList } from '../../components/review/reviews-list/reviews-list';
 import { Offer } from '../../types/offer';
 import { Review } from '../../types/review';
 
@@ -103,7 +103,8 @@ export function Property({offer, reviews}: OfferPageProps): JSX.Element {
               </section>
             </div>
           </div>
-          <section className="property__map map"></section>
+          <section className="property__map map">
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">

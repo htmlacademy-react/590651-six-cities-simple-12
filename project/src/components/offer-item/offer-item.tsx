@@ -17,13 +17,13 @@ export const OfferItem: FC<CardProps> = ({
     id: `${id}`,
   });
 
-  const [isActive] = useState(false);
+  const [isActive, setIsActive] = useState(false);
 
   return (
     <article
       className="cities__card place-card"
-      onMouseOver={() => {onSetActiveOffer(offer);}}
-      onMouseLeave={() => {onSetActiveOffer(undefined);}}
+      onMouseOver={() => {onSetActiveOffer(offer); setIsActive(true);}}
+      onMouseLeave={() => {onSetActiveOffer(undefined); setIsActive(false);}}
     >
       {isActive}
       {isPremium ? <PremiumOffer/> : ''}

@@ -1,20 +1,22 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, generatePath, Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { HelmetProvider } from 'react-helmet-async';
 import { NotFound } from '../../pages/not-found/not-found';
 import { Login } from '../../pages/login/login';
 import { Main } from '../../pages/main/main';
-import { Room } from '../../pages/offer/offer';
+import { Property } from '../../pages/property/property';
 import { Offer } from '../../types/offer';
 import { Review } from '../../types/review';
+
 
 type AppProps = {
   offersCount: number;
   offers: Offer[];
+  offer: Offer;
   reviews: Review[];
 }
 
-export function App({offersCount, offers, reviews}: AppProps): JSX.Element {
+export function App({offersCount, offers, reviews, offer}: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -28,8 +30,8 @@ export function App({offersCount, offers, reviews}: AppProps): JSX.Element {
             element={<Login />}
           />
           <Route
-            path={AppRoute.Room}
-            element={<Room reviews={reviews}/>}
+            path={generatePath(AppRoute.Room, {id: `${offer.id}`})}
+            element={<Property reviews={reviews} offer={offer}/>}
           />
           <Route
             path='*'

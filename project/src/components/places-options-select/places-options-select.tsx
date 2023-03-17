@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export function PlacesOptionsList(): JSX.Element {
+export function PlacesOptionsSelect(): JSX.Element {
   const [isListOpened, setIsListOpened] = useState(false);
 
   function listStateHanlde() {

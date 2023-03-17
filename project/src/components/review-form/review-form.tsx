@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import { ReviewRating } from '../review-rating/review-rating';
 
 type ReviewData = {
@@ -17,6 +17,14 @@ export function ReviewForm(): JSX.Element {
     setReviewFormData({...reviewFormData, [name]: value});
   };
 
+  const refButton = useRef<HTMLButtonElement | null>(null);
+
+  if (refButton.current !== null) {
+    reviewFormData.review.length >= 50 && reviewFormData.rating !== 0
+      ? refButton.current.disabled = false
+      : refButton.current.disabled = true;
+  }
+
   return (
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
@@ -33,7 +41,10 @@ export function ReviewForm(): JSX.Element {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
+        <button
+          className="reviews__submit form__submit button" type="submit" disabled ref={refButton}
+        >Submit
+        </button>
       </div>
     </form>
   );

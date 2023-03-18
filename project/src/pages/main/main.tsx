@@ -12,9 +12,10 @@ import { useCallback, useState } from 'react';
 type MainPageProps = {
   offersCount: number;
   offers: Offer[];
+  className: string;
 }
 
-export function Main({offersCount, offers}: MainPageProps): JSX.Element {
+export function Main({offersCount, offers, className}: MainPageProps): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
 
   const onListItemHover = useCallback(
@@ -72,7 +73,7 @@ export function Main({offersCount, offers}: MainPageProps): JSX.Element {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offersCount} places to stay in {CITY.name}</b>
               <PlacesOptionsSelect />
-              <OffersList offers={offers} onSetActiveOffer={onListItemHover}/>
+              <OffersList offers={offers} onSetActiveOffer={onListItemHover} className={className}/>
             </section>
             <div className="cities__right-section">
               <Map city={CITY} points={POINTS} selectedOffer={selectedOffer}/>

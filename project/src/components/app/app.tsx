@@ -14,16 +14,18 @@ type AppProps = {
   offers: Offer[];
   offer: Offer;
   reviews: Review[];
+  className: string;
+  nearPlaceClassName: string;
 }
 
-export function App({offersCount, offers, reviews, offer}: AppProps): JSX.Element {
+export function App({offersCount, offers, reviews, offer, className, nearPlaceClassName}: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<Main offersCount={offersCount} offers={offers}/>}
+            element={<Main offersCount={offersCount} offers={offers} className={className}/>}
           />
           <Route
             path={AppRoute.Login}
@@ -31,7 +33,7 @@ export function App({offersCount, offers, reviews, offer}: AppProps): JSX.Elemen
           />
           <Route
             path={generatePath(AppRoute.Room, {id: `${offer.id}`})}
-            element={<Property reviews={reviews} offer={offer}/>}
+            element={<Property reviews={reviews} offer={offer} nearPlaceClassName={nearPlaceClassName} nearPlaces={offers.slice(1)}/>}
           />
           <Route
             path='*'

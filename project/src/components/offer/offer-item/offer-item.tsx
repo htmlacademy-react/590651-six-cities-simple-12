@@ -1,33 +1,34 @@
 import { FC, useState } from 'react';
 import { generatePath, Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import { Offer } from '../../types/offer';
+import { AppRoute } from '../../../const';
+import { Offer } from '../../../types/offer';
 import { PremiumOffer } from '../premium-offer/premium-offer';
 
 type CardProps = {
   offer: Offer;
   onSetActiveOffer: (offer: Offer | undefined) => void;
+  className: string;
 };
 
 export const OfferItem: FC<CardProps> = ({
-  offer, onSetActiveOffer
+  offer, onSetActiveOffer, className
 }) => {
   const { id, isPremium, previewImage, price, rating, title, type } = offer;
   const link = generatePath(AppRoute.Room, {
     id: `${id}`,
   });
 
-  const [isActive] = useState(false);
+  const [isActive, setIsActive] = useState(false);
 
   return (
     <article
-      className="cities__card place-card"
-      onMouseOver={() => {onSetActiveOffer(offer);}}
-      onMouseLeave={() => {onSetActiveOffer(undefined);}}
+      className={`${className}__card place-card`}
+      onMouseOver={() => {onSetActiveOffer(offer); setIsActive(true);}}
+      onMouseLeave={() => {onSetActiveOffer(undefined); setIsActive(false);}}
     >
       {isActive}
       {isPremium ? <PremiumOffer/> : ''}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${className}__image-wrapper place-card__image-wrapper`}>
         <Link to={link}>
           <img className="place-card__image" src={previewImage}
             width="260" height="200" alt={title}

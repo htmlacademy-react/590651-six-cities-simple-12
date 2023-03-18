@@ -10,6 +10,8 @@ const root = ReactDOM.createRoot(
 
 const Setting = {
   OffersCount: 312,
+  OfferClassName: 'cities',
+  NearPlacesClassName: 'near-places'
 } as const;
 
 root.render(
@@ -19,6 +21,8 @@ root.render(
       offers = {OFFERS}
       reviews = {REVIEWS}
       offer = {OFFERS[0]}
+      className = {Setting.OfferClassName}
+      nearPlaceClassName = {Setting.NearPlacesClassName}
     />
   </React.StrictMode>,
 );

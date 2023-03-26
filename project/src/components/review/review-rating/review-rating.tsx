@@ -22,7 +22,7 @@ export const ReviewRating: FC<ReviewRatingProps> = ({fieldChangeHandler}) => (
   <div className="reviews__rating-form form__rating">
     {
       reviewStars.map((star) => (
-        <Fragment key={star.value}>
+        <Fragment key={`star-${star.value}`}>
           <input
             className="form__rating-input visually-hidden"
             onChange={fieldChangeHandler}

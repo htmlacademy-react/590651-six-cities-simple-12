@@ -13,7 +13,7 @@ export function OffersList({offers, onSetActiveOffer, className}: OffersListProp
       {
         offers && offers.map((offer) => (
           <OfferItem
-            key = {offer.id}
+            key = {`offer-${offer.id}`}
             offer = {offer}
             onSetActiveOffer = {onSetActiveOffer}
             className = {className}

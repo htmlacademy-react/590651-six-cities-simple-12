@@ -14,12 +14,13 @@ import 'leaflet/dist/leaflet.css';
 
 type OfferPageProps = {
   offer: Offer;
+  offers: Offer[];
   reviews: Review[];
   nearPlaces: Offer[];
   nearPlaceClassName: string;
 }
 
-export function Property({offer, reviews, nearPlaces, nearPlaceClassName}: OfferPageProps): JSX.Element {
+export function Property({offer, reviews, nearPlaces, nearPlaceClassName, offers}: OfferPageProps): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
 
   const onListItemHover = useCallback(
@@ -32,15 +33,14 @@ export function Property({offer, reviews, nearPlaces, nearPlaceClassName}: Offer
       <Header/>
       <main className="page__main page__main--property">
         <Helmet>
-          <title>Room</title>
+          <title>{offer.title}</title>
         </Helmet>
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
               {
-                offer.images.map((image, index) => (
-                  // eslint-disable-next-line react/no-array-index-key
-                  <div className="property__image-wrapper" key={`image-${index}`}>
+                offer.images.map((image) => (
+                  <div className="property__image-wrapper" key={`image-${image}`}>
                     <img className="property__image" src={image} alt={offer.title}/>
                   </div>
                 ))
@@ -49,9 +49,7 @@ export function Property({offer, reviews, nearPlaces, nearPlaceClassName}: Offer
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {offer.isPremium
-                ? <PropertyPremiumMark/>
-                : '' }
+              {offer.isPremium && <PropertyPremiumMark/>}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
                   {offer.title}
@@ -83,7 +81,7 @@ export function Property({offer, reviews, nearPlaces, nearPlaceClassName}: Offer
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
                   {
-                    offer.goods.map((good) => (
+                    offers[offer.id].goods.map((good) => (
                       <li className='property__inside-item' key={good}>
                         {good}
                       </li>
@@ -120,8 +118,9 @@ export function Property({offer, reviews, nearPlaces, nearPlaceClassName}: Offer
           <section className="property__map map">
             <Map
               city={CITY}
-              points={POINTS.slice(1)}
+              points={POINTS}
               selectedOffer={selectedOffer}
+              height={579}
             />
           </section>
         </section>

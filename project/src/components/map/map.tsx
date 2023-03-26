@@ -11,9 +11,10 @@ type MapProps = {
   city: City;
   points: Point[];
   selectedOffer: Offer | undefined;
+  height: number;
 }
 
-export function Map({city, points, selectedOffer}: MapProps): JSX.Element {
+export function Map({city, points, selectedOffer, height}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -47,7 +48,7 @@ export function Map({city, points, selectedOffer}: MapProps): JSX.Element {
   }, [map, points, selectedOffer]);
 
   return (
-    <section className="cities__map map" ref={mapRef} style={{minHeight: '579px'}}>
+    <section className="cities__map map" ref={mapRef} style={{height: `${height}px`}}>
 
     </section>
   );

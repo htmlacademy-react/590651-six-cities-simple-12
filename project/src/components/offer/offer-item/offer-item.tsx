@@ -1,8 +1,7 @@
 import { FC, useState } from 'react';
-import { generatePath, Link } from 'react-router-dom';
-import { AppRoute } from '../../../const';
+import { Link } from 'react-router-dom';
 import { Offer } from '../../../types/offer';
-import { PremiumOffer } from '../premium-offer/premium-offer';
+import { OfferPremiumMark } from '../premium-offer/offer-premium-mark';
 
 type CardProps = {
   offer: Offer;
@@ -14,9 +13,6 @@ export const OfferItem: FC<CardProps> = ({
   offer, onSetActiveOffer, className
 }) => {
   const { id, isPremium, previewImage, price, rating, title, type } = offer;
-  const link = generatePath(AppRoute.Room, {
-    id: `${id}`,
-  });
 
   const [isActive, setIsActive] = useState(false);
 
@@ -27,9 +23,9 @@ export const OfferItem: FC<CardProps> = ({
       onMouseLeave={() => {onSetActiveOffer(undefined); setIsActive(false);}}
     >
       {isActive}
-      {isPremium ? <PremiumOffer/> : ''}
+      {isPremium && <OfferPremiumMark/>}
       <div className={`${className}__image-wrapper place-card__image-wrapper`}>
-        <Link to={link}>
+        <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={previewImage}
             width="260" height="200" alt={title}
           />
@@ -50,7 +46,7 @@ export const OfferItem: FC<CardProps> = ({
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={link}>{title}</Link>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

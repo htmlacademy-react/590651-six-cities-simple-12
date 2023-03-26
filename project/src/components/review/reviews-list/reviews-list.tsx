@@ -11,7 +11,7 @@ export const ReviewsList: FC<ReviewsListProps> = ({reviews}) => (
     {
       reviews.map((review) => (
         <ReviewItem
-          key = {review.reviewId}
+          key = {`review-${review.reviewId}`}
           review = {review}
         />
       ))

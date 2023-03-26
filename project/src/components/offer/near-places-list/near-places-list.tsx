@@ -10,7 +10,7 @@ type NearPlacesListProps = {
 export function NearPlacesList({offers, onSetActiveOffer, nearPlaceClassName}: NearPlacesListProps): JSX.Element {
   return (
     <OffersList
-      offers={offers}
+      offers={offers.filter((offer) => offer.city.name)}
       onSetActiveOffer={onSetActiveOffer}
       className={nearPlaceClassName}
     />

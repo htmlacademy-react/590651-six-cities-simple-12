@@ -13,20 +13,23 @@ import { Map } from '../../components/map/map';
 import 'leaflet/dist/leaflet.css';
 
 type OfferPageProps = {
-  offer: Offer;
   offers: Offer[];
   reviews: Review[];
   nearPlaces: Offer[];
   nearPlaceClassName: string;
 }
 
-export function Property({offer, reviews, nearPlaces, nearPlaceClassName, offers}: OfferPageProps): JSX.Element {
+export function Property({reviews, nearPlaces, nearPlaceClassName, offers}: OfferPageProps): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
 
   const onListItemHover = useCallback(
     (_offer: Offer | undefined) => setSelectedOffer(_offer),
     []
   );
+
+  const offer = selectedOffer !== undefined
+    ? selectedOffer
+    : offers[0];
 
   return (
     <>
@@ -117,7 +120,7 @@ export function Property({offer, reviews, nearPlaces, nearPlaceClassName, offers
           </div>
           <section className="property__map map">
             <Map
-              city={CITY}
+              city={selectedOffer !== undefined ? selectedOffer.city : CITY}
               points={POINTS}
               selectedOffer={selectedOffer}
               height={579}

@@ -31,11 +31,11 @@ export function Main({className}: MainPageProps): JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  const currentOffers = useAppSelector(selectOffersOnCity(currentCity) );
+  const currentOffers = useAppSelector(selectOffersOnCity(currentCity));
 
   useEffect(() => {
     dispatch(setAllOffers());
-  },[]);
+  },[dispatch]);
 
   return (
     <>

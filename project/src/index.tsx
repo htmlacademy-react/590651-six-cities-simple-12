@@ -11,7 +11,6 @@ const root = ReactDOM.createRoot(
 );
 
 const Setting = {
-  OffersCount: 312,
   OfferClassName: 'cities',
   NearPlacesClassName: 'near-places'
 } as const;
@@ -20,10 +19,9 @@ root.render(
   <React.StrictMode>
     <Provider store = {store}>
       <App
-        // offersCount = {Setting.OffersCount}
         offers = {OFFERS}
+        offer = {OFFERS[1]}
         reviews = {REVIEWS}
-        offer = {OFFERS[0]}
         className = {Setting.OfferClassName}
         nearPlaceClassName = {Setting.NearPlacesClassName}
       />

@@ -1,4 +1,4 @@
-import { BrowserRouter, generatePath, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { HelmetProvider } from 'react-helmet-async';
 import { NotFound } from '../../pages/not-found/not-found';
@@ -17,7 +17,7 @@ type AppProps = {
   nearPlaceClassName: string;
 }
 
-export function App({offers, reviews, offer, className, nearPlaceClassName}: AppProps): JSX.Element {
+export function App({offers, offer, reviews, className, nearPlaceClassName}: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -37,8 +37,8 @@ export function App({offers, reviews, offer, className, nearPlaceClassName}: App
             element={<Login />}
           />
           <Route
-            path={generatePath(AppRoute.Room, {id: `${offer.id}`})}
-            element={<Property reviews={reviews} offer={offer} offers={offers} nearPlaceClassName={nearPlaceClassName} nearPlaces={offers}/>}
+            path={AppRoute.Room}
+            element={<Property reviews={reviews} offers={offers} nearPlaceClassName={nearPlaceClassName} nearPlaces={offers}/>}
           />
           <Route
             path='*'

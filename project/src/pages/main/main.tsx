@@ -19,7 +19,7 @@ type MainPageProps = {
 
 export function Main({className}: MainPageProps): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
-  const [currentCity, setCurrentCity] = useState<string>('Amsterdam');
+  const [currentCity, setCurrentCity] = useState<string>('Paris');
 
   const onListItemHover = useCallback(
     (_offer: Offer | undefined) => setSelectedOffer(_offer),

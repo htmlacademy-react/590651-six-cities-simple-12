@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 export function NavAuthorized(): JSX.Element {
   return (
@@ -11,7 +12,7 @@ export function NavAuthorized(): JSX.Element {
           </div>
         </li>
         <li className="header__nav-item">
-          <Link className="header__nav-link" to="/">
+          <Link className="header__nav-link" to={AppRoute.Login}>
             <span className="header__signout">Sign out</span>
           </Link>
         </li>

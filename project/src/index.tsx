@@ -20,7 +20,7 @@ root.render(
     <Provider store = {store}>
       <App
         offers = {OFFERS}
-        offer = {OFFERS[1]}
+        offer = {OFFERS[0]}
         reviews = {REVIEWS}
         className = {Setting.OfferClassName}
         nearPlaceClassName = {Setting.NearPlacesClassName}

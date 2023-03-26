@@ -5,7 +5,6 @@ import { Offer } from '../../types/offer';
 import { OffersList } from '../../components/offer/offers-list/offers-list';
 import { Map } from '../../components/map/map';
 import 'leaflet/dist/leaflet.css';
-// import { CITY } from '../../mocks/city';
 import { POINTS } from '../../mocks/points';
 import { useCallback, useEffect, useState } from 'react';
 import { CitiesList } from '../../components/cities-list/cities-list';

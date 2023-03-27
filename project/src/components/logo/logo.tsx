@@ -1,32 +1,15 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
-type LogoProps = {
-  type: 'header' | 'footer';
-};
-
-const sizes = {
-  header: {
-    width: 81,
-    height: 41,
-  },
-  footer: {
-    width: 64,
-    height: 33,
-  },
-};
-
-export const Logo: React.FC<LogoProps> = ({ type }) => {
-  const size = sizes[type];
+export function Logo(): JSX.Element {
   return (
-    <Link to="/" className={`${type}__logo-link`}>
+    <Link className="header__logo-link" to="/">
       <img
-        className={`${type}__logo`}
+        className="header__logo"
         src="img/logo.svg"
         alt="6 cities logo"
-        width={size.width}
-        height={size.height}
+        width="81"
+        height="41"
       />
     </Link>
   );
-};
+}

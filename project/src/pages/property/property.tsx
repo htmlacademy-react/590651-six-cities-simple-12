@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
-import { PremiumBadge } from '../../components/badge/badge';
+import { PremiumBadge } from '../../components/premium-badge/premium-badge';
 import { Layout } from '../../components/layout/layout';
 import { ListOffers } from '../../components/list-offers/list-offers';
 import { Map } from '../../components/map/map';
@@ -130,6 +130,7 @@ export const Property: FC = () => {
             city={cityLocation}
             offers={nearOffers}
             selectedOfferId={room.id}
+            height={560}
           />
         </section>
         <div className="container">

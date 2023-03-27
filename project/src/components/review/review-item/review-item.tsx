@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { Review } from '../../../types/review';
 import { getRating, formatDate } from '../../../utils/utils';
 
@@ -6,7 +6,7 @@ type ReviewItemProps = {
   review: Review;
 };
 
-export const ReviewItem: React.FC<ReviewItemProps> = ({ review }) => {
+export const ReviewItem: FC<ReviewItemProps> = ({ review }) => {
   const { comment, date, rating, user } = review;
   const { avatarUrl, isPro, name } = user;
 

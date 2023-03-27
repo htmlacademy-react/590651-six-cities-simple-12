@@ -58,6 +58,7 @@ export const Home: FC = () => {
                   city={sortingOffers[0].city}
                   offers={sortingOffers}
                   selectedOfferId={selectedOfferId}
+                  height={742}
                 />
               </div>
             </div>

@@ -1,8 +1,7 @@
-import React from 'react';
 import cn from 'classnames';
-
-import Card from '../card/card';
+import { Card } from '../card/card';
 import { Offer } from '../../types/offer';
+import { FC } from 'react';
 
 type ListOffersProps = {
   offers: Offer[];
@@ -11,7 +10,7 @@ type ListOffersProps = {
   onListItemHover?: (listItemName: number | null) => void;
 };
 
-export const ListOffers: React.FC<ListOffersProps> = ({
+export const ListOffers: FC<ListOffersProps> = ({
   offers,
   onListItemHover,
   cardType,

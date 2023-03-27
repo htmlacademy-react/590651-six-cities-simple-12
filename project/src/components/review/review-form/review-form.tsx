@@ -1,6 +1,6 @@
 import { FC, useRef, useState } from 'react';
 import { REVIEW_STARS } from '../../../const';
-import RatingStar from '../../rating-star/rating-star';
+import { RatingStar } from '../../rating-star/rating-star';
 
 export const ReviewForm: FC = () => {
   const [reviewFormData, setData] = useState({

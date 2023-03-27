@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC, useEffect, useRef } from 'react';
 import cn from 'classnames';
 import { Icon, Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -11,6 +11,7 @@ type MapProps = {
   city: City;
   offers: Offer[];
   selectedOfferId?: number | null;
+  height: number;
 };
 
 const defaultCustomIcon = new Icon({
@@ -25,17 +26,18 @@ const currentCustomIcon = new Icon({
   iconAnchor: [13.5, 39],
 });
 
-export const Map: React.FC<MapProps> = ({
+export const Map: FC<MapProps> = ({
   className,
   city,
   offers,
   selectedOfferId,
+  height,
 }) => {
-  const mapRef = React.useRef(null);
+  const mapRef = useRef(null);
 
   const map = useMap(mapRef, city);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (map) {
       map.flyTo(
         [city.location.latitude, city.location.longitude],
@@ -45,7 +47,7 @@ export const Map: React.FC<MapProps> = ({
     }
   }, [map, city]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (map) {
       offers.forEach((offer) => {
         const marker = new Marker({
@@ -67,7 +69,7 @@ export const Map: React.FC<MapProps> = ({
   return (
     <section
       className={cn('map', className)}
-      style={{ height: '562px' }}
+      style={{ height: `${height}px`}}
       ref={mapRef}
     >
     </section>

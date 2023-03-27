@@ -6,7 +6,7 @@ import { Property } from '../../pages/property/property';
 import { NotFound } from '../../pages/not-found/not-found';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppSelector } from '../../hooks';
-import LoadingScreen from '../loading-screen/loading-screen';
+import { LoadingScreen } from '../loading-screen/loading-screen';
 import { FC } from 'react';
 
 const App: FC = () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Review } from '../../../types/review';
-import { getRating, humanizeDate } from '../../../utils/utils';
+import { getRating, formatDate } from '../../../utils/utils';
 
 type ReviewItemProps = {
   review: Review;
@@ -35,9 +35,9 @@ export const ReviewItem: React.FC<ReviewItemProps> = ({ review }) => {
         <p className="reviews__text">{comment}</p>
         <time
           className="reviews__time"
-          dateTime={humanizeDate(date, 'YYYY-MM-DD')}
+          dateTime={formatDate(date, 'YYYY-MM-DD')}
         >
-          {humanizeDate(date, 'MMMM YYYY')}
+          {formatDate(date, 'MMMM YYYY')}
         </time>
       </div>
     </li>

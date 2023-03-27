@@ -5,7 +5,7 @@ import { Offer } from '../types/offer';
 export const getRating = (rating: number) =>
   (Math.round(rating) * 100) / 5;
 
-export const humanizeDate = (date: string, format: string) =>
+export const formatDate = (date: string, format: string) =>
   dayjs(date).format(format);
 
 export const getSortingOffers = (offers: Offer[], activeSort: string) => {

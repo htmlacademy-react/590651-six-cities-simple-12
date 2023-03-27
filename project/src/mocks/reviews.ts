@@ -3,7 +3,7 @@ import { Review } from '../types/review';
 export const REVIEWS: Review[] =
   [
     {
-      reviewId: 1,
+      id: 1,
       user: {
         id: 1,
         isPro: false,
@@ -14,7 +14,7 @@ export const REVIEWS: Review[] =
       comment: 'It was ok, but the weather was terrible and I spent the whole vacation at the house!',
       date: '2023-02-24'
     }, {
-      reviewId: 2,
+      id: 2,
       user: {
         id: 2,
         isPro: true,
@@ -25,7 +25,7 @@ export const REVIEWS: Review[] =
       comment: 'It was cool, I liked everything!',
       date: '2023-02-15'
     }, {
-      reviewId: 3,
+      id: 3,
       user: {
         id: 3,
         isPro: false,

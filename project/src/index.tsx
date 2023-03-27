@@ -1,30 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { App } from './components/app/app';
-import { OFFERS } from './mocks/offers';
-import { REVIEWS } from './mocks/reviews';
-import {store} from './store';
+import App from './components/app/app';
+import ErrorMessage from './components/error-message/error-message';
+import { store } from './store';
+import { checkAuthAction, fetchOfferAction } from './store/api-actions';
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement,
+  document.getElementById('root') as HTMLElement
 );
 
-const Setting = {
-  OfferClassName: 'cities',
-  NearPlacesClassName: 'near-places'
-} as const;
+store.dispatch(fetchOfferAction());
+store.dispatch(checkAuthAction());
 
 root.render(
   <React.StrictMode>
-    <Provider store = {store}>
-      <App
-        offers = {OFFERS}
-        offer = {OFFERS[1]}
-        reviews = {REVIEWS}
-        className = {Setting.OfferClassName}
-        nearPlaceClassName = {Setting.NearPlacesClassName}
-      />
+    <Provider store={store}>
+      <ErrorMessage />
+      <App />
     </Provider>
-  </React.StrictMode>,
+  </React.StrictMode>
 );

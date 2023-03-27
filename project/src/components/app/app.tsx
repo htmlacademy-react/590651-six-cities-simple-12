@@ -1,51 +1,41 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { NotFound } from '../../pages/not-found/not-found';
+import { Home } from '../../pages/home/home';
 import { Login } from '../../pages/login/login';
-import { Main } from '../../pages/main/main';
 import { Property } from '../../pages/property/property';
-import { Offer } from '../../types/offer';
-import { Review } from '../../types/review';
+import { NotFound } from '../../pages/not-found/not-found';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { useAppSelector } from '../../hooks';
+import LoadingScreen from '../loading-screen/loading-screen';
+import { FC } from 'react';
 
+const App: FC = () => {
+  const authorizationStatus = useAppSelector(
+    (state) => state.authorizationStatus
+  );
+  const isOffersDataLoading = useAppSelector(
+    (state) => state.isOffersDataLoading
+  );
 
-type AppProps = {
-  offers: Offer[];
-  offer: Offer;
-  reviews: Review[];
-  className: string;
-  nearPlaceClassName: string;
-}
+  if (
+    authorizationStatus === AuthorizationStatus.Unknown ||
+    isOffersDataLoading
+  ) {
+    return <LoadingScreen />;
+  }
 
-export function App({offers, offer, reviews, className, nearPlaceClassName}: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
-          <Route
-            path={AppRoute.Root}
-            element={<Main className={className}/>}
-          >
-            <Route
-              index
-              path={AppRoute.City}
-              element={<Main className={className}/>}
-            />
-          </Route>
-          <Route
-            path={AppRoute.Login}
-            element={<Login />}
-          />
-          <Route
-            path={AppRoute.Room}
-            element={<Property reviews={reviews} offers={offers} nearPlaceClassName={nearPlaceClassName} nearPlaces={offers}/>}
-          />
-          <Route
-            path='*'
-            element={<NotFound />}
-          />
+          <Route path={AppRoute.Root} element={<Home />} />
+          <Route path={AppRoute.Login} element={<Login />} />
+          <Route path={AppRoute.Property} element={<Property />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </HelmetProvider>
   );
-}
+};
+
+export default App;

@@ -1,24 +1,25 @@
-import { City } from './city';
 import { User } from './user';
+import { Location } from './location';
+
+export type City = {
+  location: Location;
+  name: string;
+};
 
 export type Offer = {
-  id: number;
+  bedrooms: number;
   city: City;
-  location: {
-    latitude: number;
-    longitude: number;
-    zoom: number;
-  };
+  description: string;
+  goods: string[];
+  host: User;
+  id: number;
+  images: string[];
   isPremium: boolean;
+  location: Location;
+  maxAdults: number;
   previewImage: string;
   price: number;
   rating: number;
   title: string;
   type: string;
-  bedrooms: number;
-  maxAdults: number;
-  goods: string[];
-  host: User;
-  images: string[];
-  description: string;
 };

@@ -10,10 +10,7 @@ import { changeCity } from '../../store/action';
 import { getSortingOffers } from '../../utils/utils';
 
 export const Home: FC = () => {
-  const [selectedOfferId, setSelectedOfferId] = useState<number | null>(
-    null
-  );
-
+  const [activeOfferId, setActiveOfferId] = useState<number | undefined>(undefined);
   const dispatch = useAppDispatch();
   const currentCity = useAppSelector((state) => state.city);
   const offers = useAppSelector((state) => state.offers);
@@ -47,7 +44,7 @@ export const Home: FC = () => {
                 <Sort currentSortName={currentSortName} />
                 <ListOffers
                   offers={sortingOffers}
-                  onListItemHover={setSelectedOfferId}
+                  onListItemHover={setActiveOfferId}
                   cardType="home"
                   classNames="cities__places-list tabs__content"
                 />
@@ -57,7 +54,8 @@ export const Home: FC = () => {
                   className="cities__map"
                   city={sortingOffers[0].city}
                   offers={sortingOffers}
-                  selectedOfferId={selectedOfferId}
+                  activeOfferId={activeOfferId}
+                  height={742}
                 />
               </div>
             </div>

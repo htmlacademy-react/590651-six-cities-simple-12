@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 
 type RatingStarProps = {
   value: number;
@@ -8,7 +8,7 @@ type RatingStarProps = {
   ) => void;
 };
 
-const RatingStar: React.FC<RatingStarProps> = ({
+export const RatingStar: FC<RatingStarProps> = ({
   value,
   title,
   onChangeData,
@@ -33,5 +33,3 @@ const RatingStar: React.FC<RatingStarProps> = ({
     </label>
   </>
 );
-
-export default RatingStar;

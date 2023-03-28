@@ -1,17 +1,16 @@
-import React from 'react';
 import cn from 'classnames';
-
-import Card from '../card/card';
+import { Card } from '../card/card';
 import { Offer } from '../../types/offer';
+import { FC } from 'react';
 
 type ListOffersProps = {
   offers: Offer[];
   cardType: 'home' | 'property';
   classNames: string;
-  onListItemHover?: (listItemName: number | null) => void;
+  onListItemHover?: (listItemName: number | undefined) => void;
 };
 
-export const ListOffers: React.FC<ListOffersProps> = ({
+export const ListOffers: FC<ListOffersProps> = ({
   offers,
   onListItemHover,
   cardType,
@@ -24,7 +23,7 @@ export const ListOffers: React.FC<ListOffersProps> = ({
         offer={offer}
         cardType={cardType}
         onMouseEnter={() => onListItemHover?.(offer.id)}
-        onMouseLeave={() => onListItemHover?.(null)}
+        onMouseLeave={() => onListItemHover?.(undefined)}
       />
     ))}
   </div>

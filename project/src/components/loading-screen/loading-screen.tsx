@@ -1,27 +1,10 @@
-import React from 'react';
-import { Vortex } from 'react-loader-spinner';
-import styles from './loading-screen.module.css';
+import { FC } from 'react';
+import './loading-screen.css';
 
-const LoadingScreen: React.FC = () => (
-  <div className={styles.root}>
-    <Vortex
-      visible
-      height="80"
-      width="80"
-      ariaLabel="vortex-loading"
-      wrapperStyle={{}}
-      wrapperClass="vortex-wrapper"
-      colors={[
-        '#417485',
-        '#6d7fa8',
-        '#4d5582',
-        '#5398b8',
-        '#5387b8',
-        '#536ab8',
-      ]}
-    />
-    <span>Loading...</span>
+export const LoadingScreen: FC = () => (
+  <div className="spinner-square">
+    <div className="square-1 square"></div>
+    <div className="square-2 square"></div>
+    <div className="square-3 square"></div>
   </div>
 );
-
-export default LoadingScreen;

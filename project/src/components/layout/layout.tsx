@@ -1,15 +1,15 @@
-import React from 'react';
 import { Header } from '../header/header';
 import cn from 'classnames';
 import { Helmet } from 'react-helmet-async';
+import { ReactNode, FC } from 'react';
 
 type LayoutProps = {
   className?: string;
   hasNav?: boolean;
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
-export const Layout: React.FC<LayoutProps> = ({
+export const Layout: FC<LayoutProps> = ({
   className,
   children,
   hasNav,

@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
-import { PremiumBadge } from '../../components/badge/badge';
+import { PremiumBadge } from '../../components/premium-badge/premium-badge';
 import { Layout } from '../../components/layout/layout';
 import { ListOffers } from '../../components/list-offers/list-offers';
 import { Map } from '../../components/map/map';
@@ -14,8 +14,10 @@ import { useAppSelector } from '../../hooks';
 import { REVIEWS } from '../../mocks/reviews';
 import { Offer } from '../../types/offer';
 import { getRating } from '../../utils/utils';
+import { NotFound } from '../not-found/not-found';
 
 export const Property: FC = () => {
+  const [activeOfferId, setActiveOfferId] = useState<number | undefined>(undefined);
   const { id } = useParams();
   const [room, setRoom] = useState<Offer>();
   const offers = useAppSelector((state) => state.offers);
@@ -25,11 +27,10 @@ export const Property: FC = () => {
   }, [id, offers]);
 
   if (!room) {
-    return <>Загрузка...</>;
+    return <NotFound/>;
   }
   const cityLocation = room.city;
-
-  const nearOffers = [...offers.slice(0, COUNT_NEAR_OFFER), room];
+  const nearOffers = [...offers.filter((offer) => offer.city.name === room.city.name).slice(0, COUNT_NEAR_OFFER), room];
   return (
     <Layout>
       <Helmet>
@@ -129,7 +130,8 @@ export const Property: FC = () => {
             className="property__map"
             city={cityLocation}
             offers={nearOffers}
-            selectedOfferId={room.id}
+            activeOfferId={activeOfferId ? activeOfferId : room.id}
+            height={560}
           />
         </section>
         <div className="container">
@@ -138,9 +140,10 @@ export const Property: FC = () => {
               Other places in the neighbourhood
             </h2>
             <ListOffers
-              offers={offers.slice(0, COUNT_NEAR_OFFER)}
+              offers={offers.filter((offer) => offer.city.name === room.city.name).slice(0, COUNT_NEAR_OFFER)}
               cardType="property"
               classNames="near-places__list"
+              onListItemHover={setActiveOfferId}
             />
           </section>
         </div>

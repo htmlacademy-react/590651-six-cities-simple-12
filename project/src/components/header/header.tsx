@@ -12,7 +12,7 @@ export const Header: FC<HeaderProps> = ({ hasNav = true }) => (
     <div className="container">
       <div className="header__wrapper">
         <div className="header__left">
-          <Logo type="header" />
+          <Logo />
         </div>
         {hasNav && (
           <nav className="header__nav">

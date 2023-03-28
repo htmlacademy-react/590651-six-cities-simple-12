@@ -1,10 +1,10 @@
-import React from 'react';
 import { getRating } from '../../utils/utils';
-import { PremiumBadge } from '../badge/badge';
+import { PremiumBadge } from '../premium-badge/premium-badge';
 import { Offer } from '../../types/offer';
-import ImagePlace from '../image-place/image-place';
+import { ImagePlace } from '../image-place/image-place';
 import { generatePath, Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { FC } from 'react';
 
 type CardProps = {
   offer: Offer;
@@ -27,7 +27,7 @@ const cardClassnames = {
   },
 };
 
-const Card: React.FC<CardProps> = ({
+export const Card: FC<CardProps> = ({
   offer,
   onMouseEnter,
   onMouseLeave,
@@ -35,7 +35,7 @@ const Card: React.FC<CardProps> = ({
 }) => {
   const { price, previewImage, title, type, isPremium, rating, id } = offer;
 
-  const link = generatePath(AppRoute.Property, {
+  const link = generatePath(AppRoute.Room, {
     id: `${id}`,
   });
 
@@ -78,5 +78,3 @@ const Card: React.FC<CardProps> = ({
     </article>
   );
 };
-
-export default Card;

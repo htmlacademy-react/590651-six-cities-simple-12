@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
@@ -20,7 +20,7 @@ const sizes = {
   },
 };
 
-const ImagePlace: React.FC<ImagePlaceProps> = ({
+export const ImagePlace: FC<ImagePlaceProps> = ({
   previewImage,
   title,
   type,
@@ -28,7 +28,7 @@ const ImagePlace: React.FC<ImagePlaceProps> = ({
 }) => {
   const size = sizes[type];
 
-  const link = generatePath(AppRoute.Property, {
+  const link = generatePath(AppRoute.Room, {
     id: `${id}`,
   });
 
@@ -44,5 +44,3 @@ const ImagePlace: React.FC<ImagePlaceProps> = ({
     </Link>
   );
 };
-
-export default ImagePlace;

@@ -9,7 +9,7 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { LoadingScreen } from '../loading-screen/loading-screen';
 
-const App: FC = () => {
+export const App: FC = () => {
   const authorizationStatus = useAppSelector(
     (state) => state.authorizationStatus
   );
@@ -37,5 +37,3 @@ const App: FC = () => {
     </HelmetProvider>
   );
 };
-
-export default App;

@@ -10,7 +10,7 @@ type MapProps = {
   className: string;
   city: City;
   offers: Offer[];
-  selectedOfferId?: number | null;
+  activeOfferId?: number | undefined;
   height: number;
 };
 
@@ -30,7 +30,7 @@ export const Map: FC<MapProps> = ({
   className,
   city,
   offers,
-  selectedOfferId,
+  activeOfferId,
   height,
 }) => {
   const mapRef = useRef(null);
@@ -42,10 +42,10 @@ export const Map: FC<MapProps> = ({
       map.flyTo(
         [city.location.latitude, city.location.longitude],
         city.location.zoom,
-        { animate: true, duration: 2 }
+        { animate: false }
       );
     }
-  }, [map, city]);
+  }, [map, city, offers, activeOfferId]);
 
   useEffect(() => {
     if (map) {
@@ -57,14 +57,14 @@ export const Map: FC<MapProps> = ({
 
         marker
           .setIcon(
-            selectedOfferId && offer.id === selectedOfferId
+            activeOfferId && offer.id === activeOfferId
               ? currentCustomIcon
               : defaultCustomIcon
           )
           .addTo(map);
       });
     }
-  }, [map, offers, selectedOfferId]);
+  }, [map, offers, activeOfferId]);
 
   return (
     <section

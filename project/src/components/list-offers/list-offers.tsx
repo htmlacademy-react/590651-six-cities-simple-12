@@ -7,7 +7,7 @@ type ListOffersProps = {
   offers: Offer[];
   cardType: 'home' | 'property';
   classNames: string;
-  onListItemHover?: (listItemName: number | null) => void;
+  onListItemHover?: (listItemName: number | undefined) => void;
 };
 
 export const ListOffers: FC<ListOffersProps> = ({
@@ -23,7 +23,7 @@ export const ListOffers: FC<ListOffersProps> = ({
         offer={offer}
         cardType={cardType}
         onMouseEnter={() => onListItemHover?.(offer.id)}
-        onMouseLeave={() => onListItemHover?.(null)}
+        onMouseLeave={() => onListItemHover?.(undefined)}
       />
     ))}
   </div>

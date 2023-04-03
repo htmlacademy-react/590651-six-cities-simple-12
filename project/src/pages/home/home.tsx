@@ -1,30 +1,31 @@
 import { FC, useState } from 'react';
 import { Cities } from '../../components/cities/cities';
 import { Layout } from '../../components/layout/layout';
-import { ListOffers } from '../../components/list-offers/list-offers';
+import { OffersList } from '../../components/list-offers/list-offers';
+import { LoadingScreen } from '../../components/loading-screen/loading-screen';
 import { MainEmpty } from '../../components/main-empty/main-empty';
 import { Map } from '../../components/map/map';
-import { Sort } from '../../components/sort/sort';
+import { SortingList } from '../../components/sorting-list/sorting-list';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeCity } from '../../store/action';
 import { getSortingOffers } from '../../utils/utils';
 
 export const Home: FC = () => {
   const [activeOfferId, setActiveOfferId] = useState<number | undefined>(undefined);
+  const offers = useAppSelector((state) => state.offers);
+  const currentSortingValue = useAppSelector((state) => state.sortName);
   const dispatch = useAppDispatch();
   const currentCity = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.offers);
-  const currentSortName = useAppSelector((state) => state.sortName);
-
-  const onChangeCity = (city: string) => {
-    dispatch(changeCity(city));
-  };
 
   const currentOffers = offers.filter(
     (offer) => offer.city.name === currentCity
   );
 
-  const sortingOffers = getSortingOffers(currentOffers, currentSortName);
+  const onChangeCity = (city: string) => {
+    dispatch(changeCity({city}));
+  };
+
+  const sortingOffers = getSortingOffers(currentOffers, currentSortingValue);
 
   return (
     <Layout className="page--gray page--main">
@@ -41,13 +42,17 @@ export const Home: FC = () => {
                 <b className="places__found">
                   {currentOffers.length} places to stay in {currentCity}
                 </b>
-                <Sort currentSortName={currentSortName} />
-                <ListOffers
-                  offers={sortingOffers}
-                  onListItemHover={setActiveOfferId}
-                  cardType="home"
-                  classNames="cities__places-list tabs__content"
-                />
+                <SortingList currentSortingValue={currentSortingValue} />
+                {
+                  currentOffers ?
+                    <OffersList
+                      offers={sortingOffers}
+                      onListItemHover={setActiveOfferId}
+                      cardType="home"
+                      classNames="cities__places-list tabs__content"
+                    /> :
+                    <LoadingScreen/>
+                }
               </section>
               <div className="cities__right-section">
                 <Map

@@ -3,14 +3,14 @@ import { Card } from '../card/card';
 import { Offer } from '../../types/offer';
 import { FC } from 'react';
 
-type ListOffersProps = {
+type OffersListProps = {
   offers: Offer[];
   cardType: 'home' | 'property';
   classNames: string;
   onListItemHover?: (listItemName: number | undefined) => void;
 };
 
-export const ListOffers: FC<ListOffersProps> = ({
+export const OffersList: FC<OffersListProps> = ({
   offers,
   onListItemHover,
   cardType,

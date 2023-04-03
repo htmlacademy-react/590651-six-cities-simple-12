@@ -3,6 +3,6 @@ import { setError } from '../store/action';
 import { clearErrorAction } from '../store/api-actions';
 
 export const processErrorHandle = (message: string): void => {
-  store.dispatch(setError(message));
+  store.dispatch(setError({error: message}));
   store.dispatch(clearErrorAction());
 };

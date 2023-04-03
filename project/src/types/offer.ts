@@ -1,10 +1,6 @@
 import { User } from './user';
 import { Location } from './location';
-
-export type City = {
-  location: Location;
-  name: string;
-};
+import { City } from './city';
 
 export type Offer = {
   bedrooms: number;

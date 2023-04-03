@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { FC } from 'react';
-import { CITIES } from '../../const';
+import { CITY_NAMES } from '../../const';
 
 type CitiesProps = {
   currentCity: string;
@@ -11,10 +11,10 @@ export const Cities: FC<CitiesProps> = ({ currentCity, onChangeCity }) => (
   <div className="tabs">
     <section className="locations container">
       <ul className="locations__list tabs__list">
-        {CITIES.map((city) => {
-          const className = cn('locations__item-link tabs__item', {
-            'tabs__item--active': currentCity === city,
-          });
+        {CITY_NAMES.map((city) => {
+          const className = cn('locations__item-link tabs__item',
+            currentCity === city ? 'tabs__item--active' : '',
+          );
           return (
             <li className="locations__item" key={city}>
               <a

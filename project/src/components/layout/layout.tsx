@@ -17,7 +17,7 @@ export const Layout: FC<LayoutProps> = ({
   <div className={cn('page', className)}>
     <Header hasNav={hasNav} />
     <Helmet>
-      <title>Six Cities.</title>
+      <title>Six Cities</title>
     </Helmet>
 
     {children}

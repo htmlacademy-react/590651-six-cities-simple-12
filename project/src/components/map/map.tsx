@@ -2,8 +2,9 @@ import { FC, useEffect, useRef } from 'react';
 import cn from 'classnames';
 import { Icon, Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { City, Offer } from '../../types/offer';
-import useMap from '../../hooks/use-map';
+import { Offer } from '../../types/offer';
+import { City } from '../../types/city';
+import { useMap } from '../../hooks/use-map';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
 
 type MapProps = {
@@ -42,10 +43,10 @@ export const Map: FC<MapProps> = ({
       map.flyTo(
         [city.location.latitude, city.location.longitude],
         city.location.zoom,
-        { animate: false }
+        { duration: 1.6 }
       );
     }
-  }, [map, city, offers, activeOfferId]);
+  }, [map, city, offers]);
 
   useEffect(() => {
     if (map) {

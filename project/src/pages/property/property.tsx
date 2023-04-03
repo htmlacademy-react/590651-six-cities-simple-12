@@ -3,24 +3,30 @@ import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import { PremiumBadge } from '../../components/premium-badge/premium-badge';
 import { Layout } from '../../components/layout/layout';
-import { ListOffers } from '../../components/list-offers/list-offers';
+import { OffersList } from '../../components/list-offers/list-offers';
 import { Map } from '../../components/map/map';
 import { PropertyImage } from '../../components/property-image/property-image';
 import { PropertyItem } from '../../components/property-item/property-item';
 import { ReviewForm } from '../../components/review/review-form/review-form';
 import { ReviewList } from '../../components/review/review-list/review-list';
-import { COUNT_NEAR_OFFER } from '../../const';
+import { AuthorizationStatus, NEAR_OFFERS_COUNT } from '../../const';
 import { useAppSelector } from '../../hooks';
-import { REVIEWS } from '../../mocks/reviews';
 import { Offer } from '../../types/offer';
 import { getRating } from '../../utils/utils';
 import { NotFound } from '../not-found/not-found';
+import { fetchReviewAction } from '../../store/api-actions';
+import { store } from '../../store';
 
 export const Property: FC = () => {
   const [activeOfferId, setActiveOfferId] = useState<number | undefined>(undefined);
   const { id } = useParams();
+
+  store.dispatch(fetchReviewAction(id as string)());
   const [room, setRoom] = useState<Offer>();
+
+  const reviews = useAppSelector((state) => state.reviews);
   const offers = useAppSelector((state) => state.offers);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   useEffect(() => {
     setRoom(offers.find((offer) => offer.id === Number(id)));
@@ -30,7 +36,8 @@ export const Property: FC = () => {
     return <NotFound/>;
   }
   const cityLocation = room.city;
-  const nearOffers = [...offers.filter((offer) => offer.city.name === room.city.name).slice(0, COUNT_NEAR_OFFER), room];
+  const nearOffers = [...offers.filter((offer) => offer.city.name === room.city.name && offer.id !== room.id).slice(0, NEAR_OFFERS_COUNT)];
+
   return (
     <Layout>
       <Helmet>
@@ -41,7 +48,7 @@ export const Property: FC = () => {
           <div className="property__gallery-container container">
             <div className="property__gallery">
               {room.images.slice(-6).map((img) => (
-                <PropertyImage key={img} img={img} />
+                <PropertyImage key={img} img={img} alt={room.title} />
               ))}
             </div>
           </div>
@@ -119,17 +126,21 @@ export const Property: FC = () => {
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">
                   Reviews &middot;{' '}
-                  <span className="reviews__amount">{REVIEWS.length}</span>
+                  <span className="reviews__amount">{reviews[room.id]?.length}</span>
                 </h2>
-                <ReviewList />
-                <ReviewForm />
+                <ReviewList reviews={reviews[room.id]}/>
+                {
+                  authorizationStatus === AuthorizationStatus.Auth
+                    ? <ReviewForm />
+                    : ''
+                }
               </section>
             </div>
           </div>
           <Map
             className="property__map"
             city={cityLocation}
-            offers={nearOffers}
+            offers={nearOffers.concat(room)}
             activeOfferId={activeOfferId ? activeOfferId : room.id}
             height={560}
           />
@@ -139,8 +150,8 @@ export const Property: FC = () => {
             <h2 className="near-places__title">
               Other places in the neighbourhood
             </h2>
-            <ListOffers
-              offers={offers.filter((offer) => offer.city.name === room.city.name).slice(0, COUNT_NEAR_OFFER)}
+            <OffersList
+              offers={nearOffers}
               cardType="property"
               classNames="near-places__list"
               onListItemHover={setActiveOfferId}

@@ -1,20 +1,20 @@
-import React from 'react';
+import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import leaflet, { Map } from 'leaflet';
-import { City } from '../types/offer';
+import { City } from '../types/city';
 
 const ATTRIBUTION =
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
 const TITLE =
   'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 
-const useMap = (
-  mapRef: React.MutableRefObject<HTMLElement | null>,
+export const useMap = (
+  mapRef: MutableRefObject<HTMLElement | null>,
   city: City
 ): Map | null => {
-  const [map, setMap] = React.useState<Map | null>(null);
-  const isRenderedRef = React.useRef<boolean>(false);
+  const [map, setMap] = useState<Map | null>(null);
+  const isRenderedRef = useRef<boolean>(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (mapRef.current !== null && !isRenderedRef.current) {
       const instance = leaflet.map(mapRef.current, {
         center: {
@@ -37,5 +37,3 @@ const useMap = (
 
   return map;
 };
-
-export default useMap;

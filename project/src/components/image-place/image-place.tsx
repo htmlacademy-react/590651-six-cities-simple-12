@@ -28,9 +28,7 @@ export const ImagePlace: FC<ImagePlaceProps> = ({
 }) => {
   const size = sizes[type];
 
-  const link = generatePath(AppRoute.Room, {
-    id: `${id}`,
-  });
+  const link = generatePath(AppRoute.Room, {id: `${id}`});
 
   return (
     <Link to={link}>

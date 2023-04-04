@@ -2,14 +2,14 @@ import { FC, useEffect, useRef, useState } from 'react';
 import cn from 'classnames';
 import { SortingTypes } from '../../const';
 import { useAppDispatch } from '../../hooks';
-import { changeSort } from '../../store/action';
+import { changeSorting } from '../../store/action';
 
-type SortProps = {
-  currentSortName: string;
+type SortingProps = {
+  currentSortingValue: string;
 };
 
-export const Sort: FC<SortProps> = ({ currentSortName }) => {
-  const [isSortOpen, setSortOpen] = useState(false);
+export const SortingList: FC<SortingProps> = ({ currentSortingValue }) => {
+  const [isSortingOpen, setSortingOpen] = useState(false);
   const sortRef = useRef<HTMLFormElement>(null);
 
   const dispatch = useAppDispatch();
@@ -17,7 +17,7 @@ export const Sort: FC<SortProps> = ({ currentSortName }) => {
   useEffect(() => {
     const handleClickOutside = (evt: MouseEvent) => {
       if (sortRef.current && !evt.composedPath().includes(sortRef.current)) {
-        setSortOpen(false);
+        setSortingOpen(false);
       }
     };
     document.body.addEventListener('click', handleClickOutside);
@@ -25,9 +25,9 @@ export const Sort: FC<SortProps> = ({ currentSortName }) => {
     return () => document.body.removeEventListener('click', handleClickOutside);
   }, []);
 
-  const handlerChangeSort = (sortName: string) => {
-    dispatch(changeSort(sortName));
-    setSortOpen(false);
+  const handlerChangeSort = (sortingValue: string) => {
+    dispatch(changeSorting({sortName: sortingValue}));
+    setSortingOpen(false);
   };
 
   return (
@@ -36,27 +36,27 @@ export const Sort: FC<SortProps> = ({ currentSortName }) => {
       <span
         className="places__sorting-type"
         tabIndex={0}
-        onClick={() => setSortOpen(!isSortOpen)}
+        onClick={() => setSortingOpen(!isSortingOpen)}
       >
-        &nbsp;{currentSortName}
+        &nbsp;{currentSortingValue}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      {isSortOpen && (
+      {isSortingOpen && (
         <ul className="places__options places__options--custom places__options--opened">
-          {SortingTypes.map((sortName) => {
+          {SortingTypes.map((sortingValue) => {
             const className = cn('places__option', {
-              'places__option--active': currentSortName === sortName,
+              'places__option--active': currentSortingValue === sortingValue,
             });
             return (
               <li
                 className={className}
                 tabIndex={0}
-                onClick={() => handlerChangeSort(sortName)}
-                key={sortName}
+                onClick={() => handlerChangeSort(sortingValue)}
+                key={sortingValue}
               >
-                {sortName}
+                {sortingValue}
               </li>
             );
           })}

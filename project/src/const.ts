@@ -1,7 +1,19 @@
+export const URL_MARKER_DEFAULT = 'img/pin.svg';
+export const URL_MARKER_CURRENT = 'img/pin-active.svg';
+export const NEAR_OFFERS_COUNT = 3;
+export const TIMEOUT_SHOW_ERROR = 2000;
+
 export enum AppRoute {
   Login = '/login',
   Room = '/offer/:id',
   Root = '/',
+}
+
+export enum APIRoute {
+  Offers = '/hotels',
+  Comments = '/comments/',
+  Login = '/login',
+  Logout = '/logout',
 }
 
 export enum AuthorizationStatus {
@@ -18,11 +30,7 @@ export const REVIEW_STARS = [
   { value: 1, title: 'badly' },
 ];
 
-export const URL_MARKER_DEFAULT = 'img/pin.svg';
-
-export const URL_MARKER_CURRENT = 'img/pin-active.svg';
-
-export const CITIES = [
+export const CITY_NAMES = [
   'Paris',
   'Cologne',
   'Brussels',
@@ -37,12 +45,3 @@ export const SortingTypes = [
   'Price: high to low',
   'Top rated first',
 ];
-
-export enum APIRoute {
-  Offers = '/hotels',
-  Login = '/login',
-  Logout = '/logout',
-}
-
-export const COUNT_NEAR_OFFER = 3;
-export const TIMEOUT_SHOW_ERROR = 2000;

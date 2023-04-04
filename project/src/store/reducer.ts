@@ -1,52 +1,74 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { AuthorizationStatus, CITIES, SortingTypes } from '../const';
+import { AuthorizationStatus, CITY_NAMES, SortingTypes } from '../const';
 import { Offer } from '../types/offer';
+import { Review } from '../types/review';
+import { UserAuthData } from '../types/user-auth-data';
 import {
   changeCity,
-  changeSort,
+  changeSorting,
   loadOffers,
+  loadReviews,
   requireAuthorization,
   setError,
-  setOffersDataLoadingStatus,
+  getUserInformation,
+  setOffersDataLoadingStatus
 } from './action';
 
 type InitialState = {
   city: string;
   offers: Offer[];
+  reviews: Record<string, Review[]>;
   sortName: string;
   authorizationStatus: AuthorizationStatus;
   isOffersDataLoading: boolean;
   error: string | null;
+  userInfo: UserAuthData | null;
 };
 
 const initialState: InitialState = {
+  city: CITY_NAMES[0],
   offers: [],
-  city: CITIES[0],
+  reviews: {},
   sortName: SortingTypes[0],
   authorizationStatus: AuthorizationStatus.Unknown,
   isOffersDataLoading: false,
   error: null,
+  userInfo: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeCity, (state, action) => {
-      state.city = action.payload;
+      const {city} = action.payload;
+      state.city = city;
     })
-    .addCase(changeSort, (state, action) => {
-      state.sortName = action.payload;
+    .addCase(changeSorting, (state, action) => {
+      const {sortName} = action.payload;
+      state.sortName = sortName;
     })
     .addCase(loadOffers, (state, action) => {
-      state.offers = action.payload;
+      const {offers} = action.payload;
+      state.offers = offers;
+    })
+    .addCase(loadReviews, (state, action) => {
+      const {id, reviews} = action.payload;
+      state.reviews[id] = reviews;
     })
     .addCase(setOffersDataLoadingStatus, (state, action) => {
-      state.isOffersDataLoading = action.payload;
+      const {isOffersDataLoading} = action.payload;
+      state.isOffersDataLoading = isOffersDataLoading;
     })
     .addCase(requireAuthorization, (state, action) => {
-      state.authorizationStatus = action.payload;
+      const {authorizationStatus} = action.payload;
+      state.authorizationStatus = authorizationStatus;
     })
     .addCase(setError, (state, action) => {
-      state.error = action.payload;
+      const {error} = action.payload;
+      state.error = error;
+    })
+    .addCase(getUserInformation, (state, action) => {
+      const {userInformation} = action.payload;
+      state.userInfo = userInformation;
     });
 });
 

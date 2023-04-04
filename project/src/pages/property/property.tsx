@@ -21,7 +21,6 @@ export const Property: FC = () => {
   const [activeOfferId, setActiveOfferId] = useState<number | undefined>(undefined);
   const { id } = useParams();
 
-  store.dispatch(fetchReviewAction(id as string)());
   const [room, setRoom] = useState<Offer>();
 
   const reviews = useAppSelector((state) => state.reviews);
@@ -30,6 +29,7 @@ export const Property: FC = () => {
 
   useEffect(() => {
     setRoom(offers.find((offer) => offer.id === Number(id)));
+    store.dispatch(fetchReviewAction(id as string)());
   }, [id, offers]);
 
   if (!room) {

@@ -1,12 +1,13 @@
-import React from 'react';
+import { FC } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
 
-const HeaderNav: React.FC = () => {
+const HeaderNav: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
   const info = useAppSelector((state) => state.userInfo);
 
   const authorizationStatus = useAppSelector(

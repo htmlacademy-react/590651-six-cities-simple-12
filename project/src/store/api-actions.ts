@@ -7,7 +7,7 @@ import { saveToken, dropToken } from '../services/token';
 import { APIRoute, AppRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR, } from '../const';
 import { store } from '.';
 import { AuthData } from '../types/auth-data';
-import { UserAuthData } from '../types/user-data';
+import { UserAuthData } from '../types/user-auth-data';
 import { Review } from '../types/review.js';
 
 export const clearErrorAction = createAsyncThunk('offers/clearError', () => {
@@ -35,7 +35,7 @@ export const fetchReviewAction = (id: string) => createAsyncThunk<void, undefine
 }>(
   'data/fetchReviews', async (_arg, { dispatch, extra: api }) => {
     dispatch(setReviewsDataLoadingStatus({isReviewsDataLoading: true}));
-    const { data } = await api.get<Review[]>(`${APIRoute.Reviews}${id}`);
+    const { data } = await api.get<Review[]>(`${APIRoute.Comments}${id}`);
     dispatch(setReviewsDataLoadingStatus({isReviewsDataLoading: false}));
     dispatch(loadReviews({id, reviews: data}));
   });
@@ -56,7 +56,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined,
   });
 
 export const loginAction = createAsyncThunk<
-  void,
+  string,
   AuthData,
   {
     dispatch: AppDispatch;
@@ -71,10 +71,12 @@ export const loginAction = createAsyncThunk<
       });
       saveToken(data.token);
       dispatch(requireAuthorization({authorizationStatus: AuthorizationStatus.Auth}));
-      dispatch(getUserInformation({userInformation: data}));
       dispatch(redirectToRoute(AppRoute.Root));
+      dispatch(getUserInformation({userInformation: data}));
+      return email;
     }
   );
+
 
 export const logoutAction = createAsyncThunk<
   void,

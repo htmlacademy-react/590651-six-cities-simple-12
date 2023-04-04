@@ -8,10 +8,11 @@ const HeaderNav: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const info = useAppSelector((state) => state.userInfo);
-
   const authorizationStatus = useAppSelector(
     (state) => state.authorizationStatus
+  );
+  const userInfo = useAppSelector(
+    (state) => state.userInfo
   );
   return (
     <nav className="header__nav">
@@ -25,16 +26,15 @@ const HeaderNav: FC = () => {
               <div className="header__avatar-wrapper user__avatar-wrapper">
                 <img
                   className="user__avatar"
-                  src={info && info.avatarUrl ? info.avatarUrl : ''}
+                  src={userInfo?.avatarUrl}
                   width="54"
                   height="54"
                   alt="User avatar"
                 />
               </div>
               <span className="header__user-name user__name">
-                {info ? info.email : ''}
+                {userInfo?.email}
               </span>
-              <span className="header__favorite-count">3</span>
             </Link>
           </li>
           <li className="header__nav-item">

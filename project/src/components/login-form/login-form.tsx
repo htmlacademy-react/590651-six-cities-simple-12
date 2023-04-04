@@ -1,6 +1,7 @@
-import { FC, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
+import { AuthData } from '../../types/auth-data';
 
 type FormProps = {
   value: string;
@@ -25,7 +26,7 @@ export const LoginForm: FC = () => {
     password: {
       value: '',
       error: false,
-      errorValue: 'Please enter correct password, min one letter(eng) and one number',
+      errorValue: 'Please enter at least one letter and one number',
       regexp: /(?=.*[0-9])(?=.*[A-Za-z])[A-Za-z0-9]{2,}/,
     }
   });
@@ -46,15 +47,20 @@ export const LoginForm: FC = () => {
     });
   };
 
+  const loginRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
+
   const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    dispatch(
-      loginAction({
-        login: data.email.value,
-        password: data.password.value,
-      })
-    );
+    if (loginRef.current !== null && passwordRef.current !== null) {
+      const authData: AuthData = {
+        login: loginRef.current.value,
+        password: passwordRef.current.value,
+      };
+
+      dispatch(loginAction(authData));
+    }
   };
 
   return (
@@ -66,6 +72,7 @@ export const LoginForm: FC = () => {
           type="email"
           name="email"
           placeholder="Email"
+          ref={loginRef}
           required
           value={data.email.value}
           onChange={handleLoginChange}
@@ -78,6 +85,7 @@ export const LoginForm: FC = () => {
           type="password"
           name="password"
           placeholder="Password"
+          ref={passwordRef}
           required
           value={data.password.value}
           onChange={handleLoginChange}

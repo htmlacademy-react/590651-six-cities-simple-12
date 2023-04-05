@@ -7,3 +7,10 @@ export type Review = {
   rating: number;
   user: User;
 };
+
+// TODO new review posting
+export type ReviewFormData = {
+  id: string;
+  review: string;
+  rating: string;
+};

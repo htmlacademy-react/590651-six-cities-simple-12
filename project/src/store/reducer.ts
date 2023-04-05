@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { AuthorizationStatus, CITY_NAMES, SortingTypes } from '../const';
+import { AuthorizationStatus, CITY_NAMES, ReviewStatus, SortingTypes } from '../const';
 import { Offer } from '../types/offer';
 import { Review } from '../types/review';
 import { UserAuthData } from '../types/user-auth-data';
@@ -23,6 +23,8 @@ type InitialState = {
   isOffersDataLoading: boolean;
   error: string | null;
   userInfo: UserAuthData | null;
+  // TODO new review posting
+  isReviewsLoading: ReviewStatus | null;
 };
 
 const initialState: InitialState = {
@@ -34,6 +36,8 @@ const initialState: InitialState = {
   isOffersDataLoading: false,
   error: null,
   userInfo: null,
+  // TODO new review posting
+  isReviewsLoading: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {

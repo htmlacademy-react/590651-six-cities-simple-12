@@ -12,6 +12,9 @@ export const loadOffers = createAction<{offers: Offer[]}>('offers/loadOffers');
 
 export const loadReviews = createAction<{id: string; reviews: Review[]}>('offers/loadReviews');
 
+// TODO new review posting
+export const postNewReview = createAction<{id: string; review: Review}>('offers/postReview');
+
 export const setError = createAction<{error: string | null}>('offers/setError');
 
 export const requireAuthorization = createAction<{authorizationStatus: AuthorizationStatus}>('user/requireAuthorization');

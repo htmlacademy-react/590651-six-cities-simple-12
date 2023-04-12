@@ -22,6 +22,12 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export enum ReviewStatus {
+  ReviewRest = 'REVIEW_REST',
+  ReviewPending = 'REVIEW_PENDING',
+  ReviewFulfilled = 'REVIEW_FULFILLED',
+}
+
 export const REVIEW_STARS = [
   { value: 5, title: 'perfect' },
   { value: 4, title: 'good' },
@@ -45,10 +51,3 @@ export const SortingTypes = [
   'Price: high to low',
   'Top rated first',
 ];
-
-// TODO new review posting
-export enum ReviewStatus {
-  ReviewRest = 'REVIEW_REST',
-  ReviewPending = 'REVIEW_PENDING',
-  ReviewFulfilled = 'REVIEW_FULFILLED',
-}

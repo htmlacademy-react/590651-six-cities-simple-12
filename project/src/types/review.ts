@@ -8,9 +8,8 @@ export type Review = {
   user: User;
 };
 
-// TODO new review posting
 export type ReviewFormData = {
-  id: string;
   review: string;
   rating: string;
+  id: string;
 };

@@ -34,6 +34,7 @@ export const ReviewForm: FC = () => {
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     dispatch(postCommentAction(reviewFormData));
+    setData({...reviewFormData, rating: '', review: ''});
   };
 
   useEffect(() => {

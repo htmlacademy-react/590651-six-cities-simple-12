@@ -93,7 +93,8 @@ export const postCommentAction = createAsyncThunk<
   Review[],
   ReviewFormData,
   ThunkOptions>
-  ('offer/postReview', async ({ review, rating, id }, { extra: api }) => {
+  ('offer/postReview', async ({ review, rating, id }, { dispatch, extra: api }) => {
     const { data } = await api.post<Review[]>(`${APIRoute.Comments}${id}`, {comment: review, rating});
+    dispatch(loadReviews({id, reviews: data}));
     return data;
   });

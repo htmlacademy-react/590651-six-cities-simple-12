@@ -1,7 +1,8 @@
-import { FC, useRef, useState } from 'react';
+import { ChangeEvent, FC, useRef, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
+import { Regulars } from '../../const';
 
 type FormProps = {
   value: string;
@@ -31,11 +32,17 @@ export const LoginForm: FC = () => {
     }
   });
 
-  const handleLoginChange = ({
+  const handleFieldChange = ({
     target,
-  }: React.ChangeEvent<HTMLInputElement>) => {
+  }: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = target;
     const isValidField = data[name].regexp.test(value);
+
+    if (!Regulars.Numbers.test(value) || !Regulars.Symbols.test(value)) {
+      target.setCustomValidity(data[name].errorValue);
+    } else {
+      target.setCustomValidity('');
+    }
 
     setData({
       ...data,
@@ -73,7 +80,7 @@ export const LoginForm: FC = () => {
           ref={loginRef}
           required
           value={data.email.value}
-          onChange={handleLoginChange}
+          onChange={handleFieldChange}
         />
       </div>
       <div className="login__input-wrapper form__input-wrapper">
@@ -86,7 +93,7 @@ export const LoginForm: FC = () => {
           ref={passwordRef}
           required
           value={data.password.value}
-          onChange={handleLoginChange}
+          onChange={handleFieldChange}
         />
       </div>
       <button className="login__submit form__submit button" type="submit">

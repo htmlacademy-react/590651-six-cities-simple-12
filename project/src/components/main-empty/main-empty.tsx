@@ -15,7 +15,9 @@ export const MainEmpty: FC<MainEmptyProps> = ({ city }) => (
           </p>
         </div>
       </section>
-      <div className="cities__right-section"></div>
+      <div className="cities__right-section">
+        <section className="property__map map"></section>
+      </div>
     </div>
   </div>
 );

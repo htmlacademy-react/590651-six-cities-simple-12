@@ -1,7 +1,8 @@
 import { createAction } from '@reduxjs/toolkit';
-import { AppRoute, AuthorizationStatus } from '../const';
+import { AppRoute, AuthorizationStatus, ReviewStatus } from '../const';
 import { Offer } from '../types/offer';
 import { Review } from '../types/review';
+import { State } from '../types/state';
 import { UserAuthData } from '../types/user-auth-data';
 
 export const changeCity = createAction<{city: string}>('offers/changeCity');
@@ -20,6 +21,10 @@ export const setOffersDataLoadingStatus = createAction<{isOffersDataLoading: boo
 
 export const setReviewsDataLoadingStatus = createAction<{isReviewsDataLoading: boolean}>('data/setReviewsDataLoadingStatus');
 
-export const redirectToRoute = createAction<AppRoute>('game/redirectToRoute');
+export const redirectToRoute = createAction<AppRoute>('page/redirectToRoute');
 
 export const getUserInformation = createAction<{userInformation: UserAuthData | null}>('user/getUserInformation');
+
+export const setReviewRestStatus = createAction<{reviewStatus: ReviewStatus}>('offer/setReviewRestStatus');
+
+export const getReviewLoadingStatus = (state: State) => state.commentStatus;

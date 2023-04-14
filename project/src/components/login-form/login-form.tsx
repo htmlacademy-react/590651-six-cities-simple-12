@@ -52,13 +52,11 @@ export const LoginForm: FC = () => {
 
   const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-
     if (loginRef.current !== null && passwordRef.current !== null) {
       const authData: AuthData = {
         login: loginRef.current.value,
         password: passwordRef.current.value,
       };
-
       dispatch(loginAction(authData));
     }
   };

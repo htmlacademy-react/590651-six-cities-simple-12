@@ -1,15 +1,23 @@
-import { FC, useRef, useState } from 'react';
-import { REVIEW_STARS } from '../../../const';
+import { ChangeEvent, FC, FormEvent, useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { ReviewStatus, REVIEW_STARS } from '../../../const';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { getReviewLoadingStatus } from '../../../store/action';
+import { postCommentAction } from '../../../store/api-actions';
+import { setReviewRestStatus } from '../../../store/reducer';
 import { RatingStar } from '../../rating-star/rating-star';
 
 export const ReviewForm: FC = () => {
-  const [reviewFormData, setData] = useState({
-    rating: '',
-    review: '',
-  });
+  const dispatch = useAppDispatch();
+  const reviewStatus = useAppSelector(getReviewLoadingStatus);
+  const [reviewFormData, setData] = useState({ rating: '', review: '', id: '' });
+  const formRef = useRef<HTMLFormElement>(null);
+  const params = useParams();
+  const paramsId = Number(params.id);
+
 
   const handleChangeData = (
-    evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setData({ ...reviewFormData, [evt.target.name]: evt.target.value });
   };
@@ -22,8 +30,30 @@ export const ReviewForm: FC = () => {
       : refButton.current.disabled = true;
   }
 
+
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    setData({id: String(paramsId), rating: '', review: ''});
+    dispatch(postCommentAction(reviewFormData));
+    if (formRef.current !== null) {
+      formRef.current.reset();
+    }
+  };
+
+  useEffect(() => {
+    if (reviewFormData.id !== String(paramsId)) {
+      setData({...reviewFormData, id: String(paramsId)});
+    }
+
+    if (reviewStatus === ReviewStatus.ReviewFulfilled) {
+      setData({...reviewFormData, rating: '', review: ''});
+
+      dispatch(setReviewRestStatus());
+    }
+  }, [dispatch, reviewFormData, reviewStatus, paramsId]);
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" ref={formRef} action="#" method="post" onSubmit={handleFormSubmit}>
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>

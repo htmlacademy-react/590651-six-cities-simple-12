@@ -7,3 +7,9 @@ export type Review = {
   rating: number;
   user: User;
 };
+
+export type ReviewFormData = {
+  review: string;
+  rating: string;
+  id: string;
+};

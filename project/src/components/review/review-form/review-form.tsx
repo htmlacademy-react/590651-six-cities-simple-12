@@ -33,8 +33,11 @@ export const ReviewForm: FC = () => {
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+    setData({id: String(paramsId), rating: '', review: ''});
     dispatch(postCommentAction(reviewFormData));
-    setData({...reviewFormData, rating: '', review: ''});
+    if (formRef.current !== null) {
+      formRef.current.reset();
+    }
   };
 
   useEffect(() => {
@@ -45,16 +48,12 @@ export const ReviewForm: FC = () => {
     if (reviewStatus === ReviewStatus.ReviewFulfilled) {
       setData({...reviewFormData, rating: '', review: ''});
 
-      if (formRef.current !== null) {
-        formRef.current.reset();
-      }
-
       dispatch(setReviewRestStatus());
     }
   }, [dispatch, reviewFormData, reviewStatus, paramsId]);
 
   return (
-    <form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
+    <form className="reviews__form form" ref={formRef} action="#" method="post" onSubmit={handleFormSubmit}>
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>

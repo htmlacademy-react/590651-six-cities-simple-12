@@ -131,8 +131,7 @@ export const Property: FC = () => {
                 <ReviewList reviews={reviews[room.id]}/>
                 {
                   authorizationStatus === AuthorizationStatus.Auth
-                    ? <ReviewForm />
-                    : ''
+                    && <ReviewForm />
                 }
               </section>
             </div>

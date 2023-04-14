@@ -11,7 +11,7 @@ export function ReviewList(props: ReviewListProps) {
   }
   return (
     <ul className="reviews__list">
-      {props.reviews.slice(-10).map((review) => (
+      {props.reviews.slice(-10).sort((a, b) => b.id - a.id).map((review) => (
         <ReviewItem key={review.user.name} review={review} />
       ))}
     </ul>

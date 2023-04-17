@@ -1,38 +1,25 @@
-// import { useRef, FormEvent } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
-// import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Layout } from '../../components/layout/layout';
 import { LoginForm } from '../../components/login-form/login-form';
-import { AppRoute } from '../../const';
-// import { useAppDispatch } from '../../hooks';
-// import { loginAction } from '../../store/api-actions';
-// import { AuthData } from '../../types/auth-data';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { useAppSelector } from '../../hooks';
+import { getCurrentCity, requireAuthorization } from '../../store/action';
+import { useEffect } from 'react';
 
 export function Login(): JSX.Element {
+  const navigate = useNavigate();
+  const authorizationStatus = useAppSelector(requireAuthorization);
+  const currentCity = useAppSelector(getCurrentCity);
 
-  // const loginRef = useRef<HTMLInputElement | null>(null);
-  // const passwordRef = useRef<HTMLInputElement | null>(null);
+  useEffect(() => {
 
-  // const dispatch = useAppDispatch();
-  // const navigate = useNavigate();
-
-  // const onSubmit = (authData: AuthData) => {
-  //   dispatch(loginAction(authData));
-  // };
-
-  // const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
-  //   evt.preventDefault();
-
-  //   if (loginRef.current !== null && passwordRef.current !== null) {
-  //     onSubmit({
-  //       login: loginRef.current.value,
-  //       password: passwordRef.current.value,
-  //     });
-  //   }
-  // };
-
+    if (authorizationStatus.payload.authorizationStatus === AuthorizationStatus.Auth) {
+      navigate(AppRoute.Root);
+    }
+  }, [navigate, authorizationStatus]);
   return (
+
     <Layout className="page--gray page--login" hasNav={false}>
       <Helmet>
         <title>Six Cities. Login</title>
@@ -47,7 +34,7 @@ export function Login(): JSX.Element {
           <section className="locations locations--login locations--current">
             <div className="locations__item">
               <Link className="locations__item-link" to={AppRoute.Root}>
-                <span>Paris</span>
+                <span>{currentCity}</span>
               </Link>
             </div>
           </section>

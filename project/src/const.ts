@@ -51,3 +51,8 @@ export const SortingTypes = [
   'Price: high to low',
   'Top rated first',
 ];
+
+export const Regulars = {
+  Numbers: /^(?=.*[0-9]).*$/,
+  Symbols: /^(?=.*[A-Za-zА-Яа-я]).*$/,
+} as const;

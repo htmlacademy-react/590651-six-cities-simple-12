@@ -28,3 +28,5 @@ export const getUserInformation = createAction<{userInformation: UserAuthData | 
 export const setReviewRestStatus = createAction<{reviewStatus: ReviewStatus}>('offer/setReviewRestStatus');
 
 export const getReviewLoadingStatus = (state: State) => state.commentStatus;
+
+export const getCurrentCity = (state: State) => state.city;

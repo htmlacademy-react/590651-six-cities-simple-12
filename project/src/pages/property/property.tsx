@@ -18,7 +18,6 @@ import { fetchReviewAction } from '../../store/api-actions';
 import { store } from '../../store';
 
 export const Property: FC = () => {
-  const [activeOfferId, setActiveOfferId] = useState<number | undefined>(undefined);
   const { id } = useParams();
 
   const [room, setRoom] = useState<Offer>();
@@ -140,7 +139,7 @@ export const Property: FC = () => {
             className="property__map"
             city={cityLocation}
             offers={nearOffers.concat(room)}
-            activeOfferId={activeOfferId ? activeOfferId : room.id}
+            activeOfferId={room.id}
             height={560}
           />
         </section>
@@ -153,7 +152,6 @@ export const Property: FC = () => {
               offers={nearOffers}
               cardType="property"
               classNames="near-places__list"
-              onListItemHover={setActiveOfferId}
             />
           </section>
         </div>

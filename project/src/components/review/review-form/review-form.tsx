@@ -25,7 +25,7 @@ export const ReviewForm: FC = () => {
   const refButton = useRef<HTMLButtonElement | null>(null);
 
   if (refButton.current !== null) {
-    reviewFormData.review.length >= 50 && reviewFormData.rating !== ''
+    reviewFormData.review.length >= 50 && reviewFormData.review.length <= 300 && reviewFormData.rating !== ''
       ? refButton.current.disabled = false
       : refButton.current.disabled = true;
   }

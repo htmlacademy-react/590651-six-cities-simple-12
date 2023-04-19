@@ -5,10 +5,9 @@ import { OffersList } from '../../components/list-offers/list-offers';
 import { LoadingScreen } from '../../components/loading-screen/loading-screen';
 import { MainEmpty } from '../../components/main-empty/main-empty';
 import { Map } from '../../components/map/map';
-import { SortingList } from '../../components/sorting-list/sorting-list';
+import { SortingList, getSortingOffers } from '../../components/sorting-list/sorting-list';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeCity } from '../../store/action';
-import { getSortingOffers } from '../../utils/utils';
 import { HOME_MAP_HEIGHT } from '../../const';
 
 export const Home: FC = () => {

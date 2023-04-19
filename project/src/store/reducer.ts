@@ -14,6 +14,7 @@ import {
   setOffersDataLoadingStatus,
 } from './action';
 import { postCommentAction } from './api-actions';
+import { NameSpace } from './name-space';
 
 type InitialState = {
   city: string;
@@ -81,7 +82,7 @@ export { reducer };
 
 
 const reviewsProcess = createSlice({
-  name: 'REVIEWS',
+  name: NameSpace.Reviews,
   initialState,
   reducers: {
     setReviewRestStatus: (state) => {

@@ -3,10 +3,27 @@ import cn from 'classnames';
 import { SortingTypes } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { changeSorting } from '../../store/action';
+import { Offer } from '../../types/offer';
 
 type SortingProps = {
   currentSortingValue: string;
 };
+
+export const getSortingOffers = (offers: Offer[], activeSort: string) => {
+  const sortingOffers = offers;
+
+  switch (activeSort) {
+    case SortingTypes[1]:
+      return sortingOffers.sort((a, b) => a.price - b.price);
+    case SortingTypes[2]:
+      return sortingOffers.sort((a, b) => b.price - a.price);
+    case SortingTypes[3]:
+      return sortingOffers.sort((a, b) => b.rating - a.rating);
+    default:
+      return sortingOffers;
+  }
+};
+
 
 export const SortingList: FC<SortingProps> = ({ currentSortingValue }) => {
   const [isSortingOpen, setSortingOpen] = useState(false);

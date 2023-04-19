@@ -1,10 +1,10 @@
-import { getRating } from '../../utils/utils';
 import { PremiumBadge } from '../premium-badge/premium-badge';
 import { Offer } from '../../types/offer';
 import { ImagePlace } from '../image-place/image-place';
 import { generatePath, Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { FC } from 'react';
+import { getRating } from '../review/review-item/review-item';
 
 type CardProps = {
   offer: Offer;

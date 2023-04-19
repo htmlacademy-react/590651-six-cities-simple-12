@@ -12,10 +12,10 @@ import { ReviewList } from '../../components/review/review-list/review-list';
 import { AuthorizationStatus, NEAR_OFFERS_COUNT, PROPERTY_MAP_HEIGHT } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { Offer } from '../../types/offer';
-import { getRating } from '../../utils/utils';
 import { NotFound } from '../not-found/not-found';
 import { fetchReviewAction } from '../../store/api-actions';
 import { store } from '../../store';
+import { getRating } from '../../components/review/review-item/review-item';
 
 export const Property: FC = () => {
   const { id } = useParams();

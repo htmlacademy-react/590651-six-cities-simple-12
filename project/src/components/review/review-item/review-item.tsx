@@ -1,10 +1,17 @@
 import { FC } from 'react';
 import { Review } from '../../../types/review';
-import { getRating, formatDate } from '../../../utils/utils';
+import dayjs from 'dayjs';
+
 
 type ReviewItemProps = {
   review: Review;
 };
+
+export const formatDate = (date: string, format: string) =>
+  dayjs(date).format(format);
+
+export const getRating = (rating: number) =>
+  (Math.round(rating) * 100) / 5;
 
 export const ReviewItem: FC<ReviewItemProps> = ({ review }) => {
   const { comment, date, rating, user } = review;

@@ -2,17 +2,17 @@ import { FC } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { logoutAction } from '../../store/user-process/user-api';
+import { logoutAction } from '../../store/api-actions';
 
 const HeaderNav: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const authorizationStatus = useAppSelector(
-    (state) => state.USER
+    (state) => state.authorizationStatus
   );
   const userInfo = useAppSelector(
-    (state) => state.USER
+    (state) => state.userInfo
   );
   return (
     <nav className="header__nav">
@@ -38,24 +38,24 @@ const HeaderNav: FC = () => {
             </Link>
           </li>
           <li className="header__nav-item">
-            <Link
+            <a
               className="header__nav-link"
-              to="/#"
+              href="/#"
               onClick={(event) => {
                 event.preventDefault();
                 dispatch(logoutAction());
               }}
             >
               <span className="header__signout">Sign out</span>
-            </Link>
+            </a>
           </li>
         </ul>
       ) : (
         <ul className="header__nav-list">
           <li className="header__nav-item user">
-            <Link
+            <a
               className="header__nav-link header__nav-link--profile"
-              to="/#"
+              href="/#"
               onClick={(event) => {
                 event.preventDefault();
                 navigate(AppRoute.Login);
@@ -63,7 +63,7 @@ const HeaderNav: FC = () => {
             >
               <div className="header__avatar-wrapper user__avatar-wrapper" />
               <span className="header__login">Sign in</span>
-            </Link>
+            </a>
           </li>
         </ul>
       )}

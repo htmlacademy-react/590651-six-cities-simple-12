@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom';
 import { ReviewStatus, REVIEW_STARS } from '../../../const';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { getReviewLoadingStatus } from '../../../store/action';
+import { postCommentAction } from '../../../store/api-actions';
+import { setReviewRestStatus } from '../../../store/reducer';
 import { RatingStar } from '../../rating-star/rating-star';
-import { postCommentAction } from '../../../store/reviews-process/review-api';
-import { setReviewRestStatus } from '../../../store/reviews-process/reviews-process';
 
 export const ReviewForm: FC = () => {
   const dispatch = useAppDispatch();

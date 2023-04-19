@@ -4,9 +4,6 @@ import { Offer } from '../types/offer';
 import { Review } from '../types/review';
 import { State } from '../types/state';
 import { UserAuthData } from '../types/user-auth-data';
-import { NameSpace } from './name-space';
-
-const NAME_SPACE = NameSpace.Offers;
 
 export const changeCity = createAction<{city: string}>('offers/changeCity');
 
@@ -30,8 +27,6 @@ export const getUserInformation = createAction<{userInformation: UserAuthData | 
 
 export const setReviewRestStatus = createAction<{reviewStatus: ReviewStatus}>('offer/setReviewRestStatus');
 
-export const getReviewLoadingStatus = (state: State) => state[NAME_SPACE].commentStatus;
+export const getReviewLoadingStatus = (state: State) => state.commentStatus;
 
-export const getCurrentCity = (state: State) => state[NAME_SPACE].city;
-
-export const getReviewsOfOffer = (state: State) => state[NAME_SPACE].reviewsList;
+export const getCurrentCity = (state: State) => state.city;

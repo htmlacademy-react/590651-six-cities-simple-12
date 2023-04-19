@@ -9,6 +9,7 @@ import { SortingList } from '../../components/sorting-list/sorting-list';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeCity } from '../../store/action';
 import { getSortingOffers } from '../../utils/utils';
+import { HOME_MAP_HEIGHT } from '../../const';
 
 export const Home: FC = () => {
   const [activeOfferId, setActiveOfferId] = useState<number | undefined>(undefined);
@@ -60,7 +61,7 @@ export const Home: FC = () => {
                   city={sortingOffers[0].city}
                   offers={sortingOffers}
                   activeOfferId={activeOfferId}
-                  height={742}
+                  height={HOME_MAP_HEIGHT}
                 />
               </div>
             </div>

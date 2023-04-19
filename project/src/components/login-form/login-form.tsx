@@ -1,7 +1,11 @@
 import { ChangeEvent, FC, useRef, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
-import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
+<<<<<<< HEAD
+import { loginAction } from '../../store/user-process/user-api';
+=======
+import { Regulars } from '../../const';
+>>>>>>> parent of 3768fcc... fix validation e-mail
 
 type FormProps = {
   value: string;
@@ -21,7 +25,7 @@ export const LoginForm: FC = () => {
       value: '',
       error: false,
       errorValue: 'Please enter correct e-mail',
-      regexp: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/,
+      regexp: /^[^ ]+@[^ ]+\.[a-z]{2,3}$/,
     },
     password: {
       value: '',
@@ -37,7 +41,7 @@ export const LoginForm: FC = () => {
     const {name, value} = target;
     const isValidField = data[name].regexp.test(value);
 
-    if (!isValidField) {
+    if (!Regulars.Numbers.test(value) || !Regulars.Symbols.test(value)) {
       target.setCustomValidity(data[name].errorValue);
     } else {
       target.setCustomValidity('');

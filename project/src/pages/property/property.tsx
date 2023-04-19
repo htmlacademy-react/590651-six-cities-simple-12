@@ -9,7 +9,7 @@ import { PropertyImage } from '../../components/property-image/property-image';
 import { PropertyItem } from '../../components/property-item/property-item';
 import { ReviewForm } from '../../components/review/review-form/review-form';
 import { ReviewList } from '../../components/review/review-list/review-list';
-import { AuthorizationStatus, NEAR_OFFERS_COUNT } from '../../const';
+import { AuthorizationStatus, NEAR_OFFERS_COUNT, PROPERTY_MAP_HEIGHT } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { Offer } from '../../types/offer';
 import { getRating } from '../../utils/utils';
@@ -140,7 +140,7 @@ export const Property: FC = () => {
             city={cityLocation}
             offers={nearOffers.concat(room)}
             activeOfferId={room.id}
-            height={560}
+            height={PROPERTY_MAP_HEIGHT}
           />
         </section>
         <div className="container">

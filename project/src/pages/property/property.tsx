@@ -9,33 +9,32 @@ import { PropertyImage } from '../../components/property-image/property-image';
 import { PropertyItem } from '../../components/property-item/property-item';
 import { ReviewForm } from '../../components/review/review-form/review-form';
 import { ReviewList } from '../../components/review/review-list/review-list';
-import { AuthorizationStatus, NEAR_OFFERS_COUNT } from '../../const';
+import { AuthorizationStatus, NEAR_OFFERS_COUNT, PROPERTY_MAP_HEIGHT } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { Offer } from '../../types/offer';
 import { getRating } from '../../utils/utils';
 import { NotFound } from '../not-found/not-found';
-import { fetchReviewAction } from '../../store/api-actions';
 import { store } from '../../store';
+import { fetchReviewAction } from '../../store/reviews-process/review-api';
 
 export const Property: FC = () => {
   const { id } = useParams();
 
   const [room, setRoom] = useState<Offer>();
 
-  const reviews = useAppSelector((state) => state.reviews);
-  const offers = useAppSelector((state) => state.offers);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const reviews = useAppSelector((state) => state.REVIEWS.reviewsOfOffer);
+  const offers = useAppSelector((state) => state.OFFER);
 
   useEffect(() => {
-    setRoom(offers.find((offer) => offer.id === Number(id)));
-    store.dispatch(fetchReviewAction(id as string)());
+    setRoom(offers.offers.find((offer) => offer.id === Number(id)));
+    store.dispatch(fetchReviewAction(Number(id)));
   }, [id, offers]);
 
   if (!room) {
     return <NotFound/>;
   }
   const cityLocation = room.city;
-  const nearOffers = [...offers.filter((offer) => offer.city.name === room.city.name && offer.id !== room.id).slice(0, NEAR_OFFERS_COUNT)];
+  const nearOffers = [...offers.offers.filter((offer) => offer.city.name === room.city.name && offer.id !== room.id).slice(0, NEAR_OFFERS_COUNT)];
 
   return (
     <Layout>
@@ -125,11 +124,11 @@ export const Property: FC = () => {
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">
                   Reviews &middot;{' '}
-                  <span className="reviews__amount">{reviews[room.id]?.length}</span>
+                  <span className="reviews__amount">{reviews.length}</span>
                 </h2>
                 <ReviewList reviews={reviews[room.id]}/>
                 {
-                  authorizationStatus === AuthorizationStatus.Auth
+                  state.authorizationStatus === AuthorizationStatus.Auth
                     && <ReviewForm />
                 }
               </section>
@@ -140,7 +139,7 @@ export const Property: FC = () => {
             city={cityLocation}
             offers={nearOffers.concat(room)}
             activeOfferId={room.id}
-            height={560}
+            height={PROPERTY_MAP_HEIGHT}
           />
         </section>
         <div className="container">

@@ -2,6 +2,8 @@ export const URL_MARKER_DEFAULT = 'img/pin.svg';
 export const URL_MARKER_CURRENT = 'img/pin-active.svg';
 export const NEAR_OFFERS_COUNT = 3;
 export const TIMEOUT_SHOW_ERROR = 2000;
+export const HOME_MAP_HEIGHT = 742;
+export const PROPERTY_MAP_HEIGHT = 560;
 
 export enum AppRoute {
   Login = '/login',

@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useRef, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
-import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
+import { loginAction } from '../../store/user-process/user-api';
 
 type FormProps = {
   value: string;

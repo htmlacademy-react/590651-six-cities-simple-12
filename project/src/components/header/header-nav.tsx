@@ -38,24 +38,24 @@ const HeaderNav: FC = () => {
             </Link>
           </li>
           <li className="header__nav-item">
-            <a
+            <Link
               className="header__nav-link"
-              href="/#"
+              to="/#"
               onClick={(event) => {
                 event.preventDefault();
                 dispatch(logoutAction());
               }}
             >
               <span className="header__signout">Sign out</span>
-            </a>
+            </Link>
           </li>
         </ul>
       ) : (
         <ul className="header__nav-list">
           <li className="header__nav-item user">
-            <a
+            <Link
               className="header__nav-link header__nav-link--profile"
-              href="/#"
+              to="/#"
               onClick={(event) => {
                 event.preventDefault();
                 navigate(AppRoute.Login);
@@ -63,7 +63,7 @@ const HeaderNav: FC = () => {
             >
               <div className="header__avatar-wrapper user__avatar-wrapper" />
               <span className="header__login">Sign in</span>
-            </a>
+            </Link>
           </li>
         </ul>
       )}

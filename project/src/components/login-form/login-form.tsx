@@ -2,7 +2,6 @@ import { ChangeEvent, FC, useRef, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
-import { Regulars } from '../../const';
 
 type FormProps = {
   value: string;
@@ -22,7 +21,7 @@ export const LoginForm: FC = () => {
       value: '',
       error: false,
       errorValue: 'Please enter correct e-mail',
-      regexp: /^[^ ]+@[^ ]+\.[a-z]{2,3}$/,
+      regexp: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/,
     },
     password: {
       value: '',
@@ -38,7 +37,7 @@ export const LoginForm: FC = () => {
     const {name, value} = target;
     const isValidField = data[name].regexp.test(value);
 
-    if (!Regulars.Numbers.test(value) || !Regulars.Symbols.test(value)) {
+    if (!isValidField) {
       target.setCustomValidity(data[name].errorValue);
     } else {
       target.setCustomValidity('');

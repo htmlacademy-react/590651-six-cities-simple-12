@@ -2,7 +2,11 @@ import { ChangeEvent, FC, useRef, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { AuthData } from '../../types/auth-data';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { loginAction } from '../../store/user-process/user-api';
+=======
+import { Regulars } from '../../const';
+>>>>>>> parent of 3768fcc... fix validation e-mail
 =======
 import { Regulars } from '../../const';
 >>>>>>> parent of 3768fcc... fix validation e-mail

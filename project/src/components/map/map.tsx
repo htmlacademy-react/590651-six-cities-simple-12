@@ -43,12 +43,13 @@ export const Map: FC<MapProps> = ({
       map.flyTo(
         [city.location.latitude, city.location.longitude],
         city.location.zoom,
-        { duration: 1.6 }
+        { animate: false }
       );
     }
   }, [map, city, offers]);
 
   useEffect(() => {
+    const markers: Marker[] = [];
     if (map) {
       offers.forEach((offer) => {
         const marker = new Marker({
@@ -58,13 +59,20 @@ export const Map: FC<MapProps> = ({
 
         marker
           .setIcon(
-            activeOfferId && offer.id === activeOfferId
+            activeOfferId !== undefined && offer.id === activeOfferId
               ? currentCustomIcon
               : defaultCustomIcon
           )
           .addTo(map);
+        markers.push(marker);
       });
     }
+
+    return () => {
+      if (map) {
+        markers.forEach((marker) => marker.removeFrom(map));
+      }
+    };
   }, [map, offers, activeOfferId]);
 
   return (

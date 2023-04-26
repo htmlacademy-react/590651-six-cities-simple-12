@@ -2,6 +2,7 @@ import { ChangeEvent, FC, useRef, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
+import { ErrorMessage } from '../../const';
 
 type FormProps = {
   value: string;
@@ -20,13 +21,13 @@ export const LoginForm: FC = () => {
     email: {
       value: '',
       error: false,
-      errorValue: 'Please enter correct e-mail',
+      errorValue: ErrorMessage.EmailError,
       regexp: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/,
     },
     password: {
       value: '',
       error: false,
-      errorValue: 'Please enter at least one letter and one number',
+      errorValue: ErrorMessage.PasswordError,
       regexp: /(?=.*[0-9])(?=.*[A-Za-z])[A-Za-z0-9]{2,}/,
     }
   });

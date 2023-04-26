@@ -14,10 +14,10 @@ import browserHistory from '../../browser-history';
 
 export const App: FC = () => {
   const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus
+    (state) => state.auth.authorizationStatus
   );
   const isOffersDataLoading = useAppSelector(
-    (state) => state.isOffersDataLoading
+    (state) => state.data.isOffersDataLoading
   );
 
   if (

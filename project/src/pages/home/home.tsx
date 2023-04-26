@@ -12,10 +12,10 @@ import { HOME_MAP_HEIGHT } from '../../const';
 
 export const Home: FC = () => {
   const [activeOfferId, setActiveOfferId] = useState<number | undefined>(undefined);
-  const offers = useAppSelector((state) => state.offers);
-  const currentSortingValue = useAppSelector((state) => state.sortName);
+  const offers = useAppSelector((state) => state.data.offers);
+  const currentSortingValue = useAppSelector((state) => state.data.sortName);
   const dispatch = useAppDispatch();
-  const currentCity = useAppSelector((state) => state.city);
+  const currentCity = useAppSelector((state) => state.data.city);
 
   const currentOffers = offers.filter(
     (offer) => offer.city.name === currentCity

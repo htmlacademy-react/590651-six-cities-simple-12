@@ -12,7 +12,7 @@ export function ReviewList(props: ReviewListProps) {
   return (
     <ul className="reviews__list">
       {props.reviews.slice(-10).sort((a, b) => Date.parse(b.date) - Date.parse(a.date)).map((review) => (
-        <ReviewItem key={review.user.name} review={review} />
+        <ReviewItem key={review.id} review={review} />
       ))}
     </ul>
   );

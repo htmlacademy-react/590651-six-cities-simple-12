@@ -9,11 +9,15 @@ const HeaderNav: FC = () => {
   const dispatch = useAppDispatch();
 
   const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus
+    (state) => state.auth.authorizationStatus
   );
   const userInfo = useAppSelector(
-    (state) => state.userInfo
+    (state) => state.auth.userInfo
   );
+
+  // eslint-disable-next-line no-console
+  console.log(userInfo);
+
   return (
     <nav className="header__nav">
       {authorizationStatus === AuthorizationStatus.Auth ? (

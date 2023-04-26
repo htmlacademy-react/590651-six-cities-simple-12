@@ -1,4 +1,4 @@
-import { CITY_NAMES, SortingTypes } from '../../../const';
+import { CITY_NAMES, SORTING_TYPES } from '../../../const';
 import { ActionReducerMapBuilder, createReducer } from '@reduxjs/toolkit';
 import { DataState } from '../../../types/state';
 import { changeCity, changeSorting, loadOffers, setError, setOffersDataLoadingStatus } from '../../action';
@@ -7,7 +7,7 @@ import { ReducerWithInitialState } from '@reduxjs/toolkit/dist/createReducer';
 const initialState: DataState = {
   city: CITY_NAMES[0],
   offers: [],
-  sortName: SortingTypes[0],
+  sortName: SORTING_TYPES[0],
   isOffersDataLoading: false,
   error: null,
 };

@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef, useState } from 'react';
 import cn from 'classnames';
-import { SortingTypes } from '../../const';
+import { SORTING_TYPES } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { changeSorting } from '../../store/action';
 import { Offer } from '../../types/offer';
@@ -13,11 +13,11 @@ export const getSortingOffers = (offers: Offer[], activeSort: string) => {
   const sortingOffers = offers;
 
   switch (activeSort) {
-    case SortingTypes[1]:
+    case SORTING_TYPES[1]:
       return sortingOffers.sort((a, b) => a.price - b.price);
-    case SortingTypes[2]:
+    case SORTING_TYPES[2]:
       return sortingOffers.sort((a, b) => b.price - a.price);
-    case SortingTypes[3]:
+    case SORTING_TYPES[3]:
       return sortingOffers.sort((a, b) => b.rating - a.rating);
     default:
       return sortingOffers;
@@ -62,7 +62,7 @@ export const SortingList: FC<SortingProps> = ({ currentSortingValue }) => {
       </span>
       {isSortingOpen && (
         <ul className="places__options places__options--custom places__options--opened">
-          {SortingTypes.map((sortingValue) => {
+          {SORTING_TYPES.map((sortingValue) => {
             const className = cn('places__option', {
               'places__option--active': currentSortingValue === sortingValue,
             });

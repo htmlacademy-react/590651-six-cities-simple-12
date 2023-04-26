@@ -53,7 +53,7 @@ export const CITY_NAMES = [
   'Dusseldorf',
 ];
 
-export const SortingTypes = [
+export const SORTING_TYPES = [
   'Popular',
   'Price: low to high',
   'Price: high to low',

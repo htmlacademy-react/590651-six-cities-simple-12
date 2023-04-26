@@ -30,6 +30,12 @@ export enum ReviewStatus {
   ReviewFulfilled = 'REVIEW_FULFILLED',
 }
 
+export enum ErrorMessage {
+  EmailError = 'Please enter correct e-mail',
+  PasswordError = 'Please enter at least one letter and one number',
+  CommentError = 'Error! Can\'t add review, please, try again',
+}
+
 export const REVIEW_STARS = [
   { value: 5, title: 'perfect' },
   { value: 4, title: 'good' },

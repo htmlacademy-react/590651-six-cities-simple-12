@@ -1,23 +1,24 @@
 import { Helmet } from 'react-helmet-async';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Layout } from '../../components/layout/layout';
 import { LoginForm } from '../../components/login-form/login-form';
-import { AppRoute, AuthorizationStatus } from '../../const';
-import { useAppSelector } from '../../hooks';
-import { getCurrentCity, requireAuthorization } from '../../store/action';
+import { AppRoute } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
+import { getCurrentCity, redirectToRoute } from '../../store/action';
+import { State } from '../../types/state';
 
 export function Login(): JSX.Element {
-  const navigate = useNavigate();
-  const authorizationStatus = useAppSelector(requireAuthorization);
+  const dispatch = useAppDispatch();
+  const userInfo = useAppSelector((state: State) => state.auth.userInfo);
   const currentCity = useAppSelector(getCurrentCity);
 
-  useEffect(() => {
-
-    if (authorizationStatus.payload.authorizationStatus === AuthorizationStatus.Auth) {
-      navigate(AppRoute.Root);
+  useEffect((): void => {
+    if (userInfo) {
+      dispatch(redirectToRoute(AppRoute.Root));
     }
-  }, [navigate, authorizationStatus]);
+  });
+
   return (
 
     <Layout className="page--gray page--login" hasNav={false}>

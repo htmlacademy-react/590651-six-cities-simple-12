@@ -1,25 +1,22 @@
-import { ChangeEvent, FC, FormEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, FC, FormEvent, Fragment, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { ReviewStatus, REVIEW_STARS } from '../../../const';
+import { REVIEW_STARS } from '../../../const';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { getReviewLoadingStatus } from '../../../store/action';
 import { postCommentAction } from '../../../store/api-actions';
-import { setReviewRestStatus } from '../../../store/reducer';
-import { RatingStar } from '../../rating-star/rating-star';
 
 export const ReviewForm: FC = () => {
   const dispatch = useAppDispatch();
   const reviewStatus = useAppSelector(getReviewLoadingStatus);
-  const [reviewFormData, setData] = useState({ rating: '', review: '', id: '' });
+  const [reviewFormData, setFormData] = useState({ rating: '', review: '', id: '' });
   const formRef = useRef<HTMLFormElement>(null);
   const params = useParams();
   const paramsId = Number(params.id);
 
-
   const handleChangeData = (
     evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setData({ ...reviewFormData, [evt.target.name]: evt.target.value });
+    setFormData({ ...reviewFormData, [evt.target.name]: evt.target.value });
   };
 
   const refButton = useRef<HTMLButtonElement | null>(null);
@@ -30,10 +27,9 @@ export const ReviewForm: FC = () => {
       : refButton.current.disabled = true;
   }
 
-
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    setData({id: String(paramsId), rating: '', review: ''});
+    setFormData({id: String(paramsId), rating: '', review: ''});
     dispatch(postCommentAction(reviewFormData));
     if (formRef.current !== null) {
       formRef.current.reset();
@@ -42,15 +38,16 @@ export const ReviewForm: FC = () => {
 
   useEffect(() => {
     if (reviewFormData.id !== String(paramsId)) {
-      setData({...reviewFormData, id: String(paramsId)});
+      setFormData({...reviewFormData, id: String(paramsId)});
     }
 
-    if (reviewStatus === ReviewStatus.ReviewFulfilled) {
-      setData({...reviewFormData, rating: '', review: ''});
-
-      dispatch(setReviewRestStatus());
-    }
   }, [dispatch, reviewFormData, reviewStatus, paramsId]);
+
+  const handleRatingSelect = (star: string) => {
+    if (star !== reviewFormData.rating) {
+      setFormData({...reviewFormData, rating: star});
+    }
+  };
 
   return (
     <form className="reviews__form form" ref={formRef} action="#" method="post" onSubmit={handleFormSubmit}>
@@ -58,14 +55,30 @@ export const ReviewForm: FC = () => {
         Your review
       </label>
       <div className="reviews__rating-form form__rating">
-        {REVIEW_STARS.map((star) => (
-          <RatingStar
-            key={star.value}
-            value={star.value}
-            title={star.title}
-            onChangeData={handleChangeData}
-          />
-        ))}
+        {
+          REVIEW_STARS.map((star) => (
+            <Fragment key={star.value}>
+              <input
+                className="form__rating-input visually-hidden"
+                name="rating"
+                value={star.value}
+                id={`${star.value}-stars`}
+                type="radio"
+                disabled={reviewStatus}
+              />
+              <label
+                htmlFor={`${star.value}-stars`}
+                className="reviews__rating-label form__rating-label"
+                onClick={() => {handleRatingSelect(String(star.value));}}
+                title={star.title}
+              >
+                <svg className="form__star-image" width="37" height="33">
+                  <use xlinkHref="#icon-star"></use>
+                </svg>
+              </label>
+            </Fragment>
+          ))
+        }
       </div>
       <textarea
         onChange={handleChangeData}
@@ -74,6 +87,7 @@ export const ReviewForm: FC = () => {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={reviewFormData.review}
+        disabled={reviewStatus}
       >
       </textarea>
       <div className="reviews__button-wrapper">

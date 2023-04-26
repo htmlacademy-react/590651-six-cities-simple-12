@@ -4,11 +4,12 @@ import { AppDispatch, State } from '../types/state.js';
 import { Offer } from '../types/offer';
 import { loadOffers, requireAuthorization, setError, setOffersDataLoadingStatus, getUserInformation, setReviewsDataLoadingStatus, loadReviews, redirectToRoute } from './action';
 import { saveToken, dropToken } from '../services/token';
-import { APIRoute, AppRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR, } from '../const';
+import { APIRoute, AppRoute, AuthorizationStatus, ErrorMessage, TIMEOUT_SHOW_ERROR, } from '../const';
 import { store } from '.';
 import { AuthData } from '../types/auth-data';
 import { UserAuthData } from '../types/user-auth-data';
 import { Review, ReviewFormData } from '../types/review.js';
+import { toast } from 'react-toastify';
 
 
 type ThunkOptions = {
@@ -90,11 +91,19 @@ export const logoutAction = createAsyncThunk<
     });
 
 export const postCommentAction = createAsyncThunk<
-  Review[],
+  boolean,
   ReviewFormData,
   ThunkOptions>
   ('offer/postReview', async ({ review, rating, id }, { dispatch, extra: api }) => {
-    const { data } = await api.post<Review[]>(`${APIRoute.Comments}${id}`, {comment: review, rating});
-    dispatch(loadReviews({id, reviews: data}));
-    return data;
+    dispatch(setReviewsDataLoadingStatus({isReviewsDataLoading: true}));
+    try {
+      const { data } = await api.post<Review[]>(`${APIRoute.Comments}${id}`, {comment: review, rating});
+      dispatch(loadReviews({id, reviews: data}));
+      return true;
+    } catch (err) {
+      toast.error(ErrorMessage.CommentError);
+      return false;
+    } finally {
+      dispatch(setReviewsDataLoadingStatus({isReviewsDataLoading: false}));
+    }
   });

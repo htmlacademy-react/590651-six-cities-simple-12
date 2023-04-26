@@ -22,9 +22,9 @@ export const Property: FC = () => {
 
   const [room, setRoom] = useState<Offer>();
 
-  const reviews = useAppSelector((state) => state.reviews);
-  const offers = useAppSelector((state) => state.offers);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const reviews = useAppSelector((state) => state.review.reviews);
+  const offers = useAppSelector((state) => state.data.offers);
+  const authorizationStatus = useAppSelector((state) => state.auth.authorizationStatus);
 
   useEffect(() => {
     setRoom(offers.find((offer) => offer.id === Number(id)));

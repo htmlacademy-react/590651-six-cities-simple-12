@@ -25,8 +25,8 @@ export const redirectToRoute = createAction<AppRoute>('page/redirectToRoute');
 
 export const getUserInformation = createAction<{userInformation: UserAuthData | null}>('user/getUserInformation');
 
-export const setReviewRestStatus = createAction<{reviewStatus: ReviewStatus}>('offer/setReviewRestStatus');
+export const setReviewRestStatus = createAction<{reviewStatus: ReviewStatus}>('offers/setReviewRestStatus');
 
-export const getReviewLoadingStatus = (state: State) => state.commentStatus;
+export const getReviewLoadingStatus = (state: State) => state.review.isReviewSending;
 
-export const getCurrentCity = (state: State) => state.city;
+export const getCurrentCity = (state: State) => state.data.city;

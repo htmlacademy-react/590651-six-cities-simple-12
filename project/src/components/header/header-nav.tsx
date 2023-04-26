@@ -40,8 +40,8 @@ const HeaderNav: FC = () => {
           </li>
           <li className="header__nav-item">
             <Link
-              className="header__nav-link"
               to="/#"
+              className="header__nav-link"
               onClick={(event) => {
                 event.preventDefault();
                 dispatch(logoutAction());
@@ -56,7 +56,8 @@ const HeaderNav: FC = () => {
           <li className="header__nav-item user">
             <Link
               className="header__nav-link header__nav-link--profile"
-              to="/#"
+              to={AppRoute.Login}
+              replace
               onClick={(event) => {
                 event.preventDefault();
                 navigate(AppRoute.Login);

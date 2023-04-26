@@ -15,9 +15,6 @@ const HeaderNav: FC = () => {
     (state) => state.auth.userInfo
   );
 
-  // eslint-disable-next-line no-console
-  console.log(userInfo);
-
   return (
     <nav className="header__nav">
       {authorizationStatus === AuthorizationStatus.Auth ? (

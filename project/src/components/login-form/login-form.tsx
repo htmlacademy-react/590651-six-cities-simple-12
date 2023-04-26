@@ -2,7 +2,8 @@ import { ChangeEvent, FC, useRef, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
-import { ErrorMessage } from '../../const';
+import { AppRoute, ErrorMessage } from '../../const';
+import { redirectToRoute } from '../../store/action';
 
 type FormProps = {
   value: string;
@@ -65,6 +66,7 @@ export const LoginForm: FC = () => {
         password: passwordRef.current.value,
       };
       dispatch(loginAction(authData));
+      dispatch(redirectToRoute(AppRoute.Root));
     }
   };
 

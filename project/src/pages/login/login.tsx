@@ -2,20 +2,21 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { Layout } from '../../components/layout/layout';
 import { LoginForm } from '../../components/login-form/login-form';
-import { AppRoute } from '../../const';
+import { AppRoute, CITY_NAMES } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
-import { getCurrentCity, redirectToRoute } from '../../store/action';
+import { redirectToRoute } from '../../store/action';
 import { State } from '../../types/state';
+import { changeCity } from '../../store/action';
 
 export function Login(): JSX.Element {
   const dispatch = useAppDispatch();
   const userInfo = useAppSelector((state: State) => state.auth.userInfo);
-  const currentCity = useAppSelector(getCurrentCity);
+  const randomCity = CITY_NAMES[Math.floor(Math.random() * CITY_NAMES.length)];
 
   useEffect((): void => {
-    if (userInfo) {
-      dispatch(redirectToRoute(AppRoute.Root));
+    if (userInfo?.email.length) {
+      dispatch(redirectToRoute(AppRoute.Login));
     }
   });
 
@@ -34,8 +35,8 @@ export function Login(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to={AppRoute.Root}>
-                <span>{currentCity}</span>
+              <Link className="locations__item-link" to={AppRoute.Root} onClick={() => dispatch(changeCity({city: randomCity}))}>
+                <span>{randomCity}</span>
               </Link>
             </div>
           </section>
